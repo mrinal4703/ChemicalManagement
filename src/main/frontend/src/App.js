@@ -11,6 +11,7 @@ import ScheduleProduction from "./Components/ScheduleProduction";
 import RawMaterialProvider from "./Components/RawMaterialProvider";
 import RawMaterialProviderDashboard from "./Components/RawMaterialProviderDashboard";
 import AssessProduction from "./Components/AssessProduction";
+import WelcomePage from "./Components/WelcomePage";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <NavBar/>
           <div className={'route-transition'}>
             <Routes>
-              {/*<Route exact path="/" element={<Dashboard/>}/>*/}
+              <Route exact path="/" element={<WelcomePage/>}/>
               <Route exact path="/Signup" element={<Signup/>}/>
               <Route exact path="/Dashboard" element={<Dashboard/>}/>
               <Route exact path="/ManageInventory" element={<ManageInventory/>}/>
