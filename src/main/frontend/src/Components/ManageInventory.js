@@ -138,7 +138,7 @@ const ManageInventory = ({onToggleManageInventory}) => {
 
     return (
         <div>
-            <h1 className={'text-3xl my-2 '}>Inventory</h1>
+            <h1 className={'text-3xl my-2 '}>MANAGE INVENTORY</h1>
             <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
             <div className={'flex flex-row gap-10 justify-evenly mt-10'}>
                 <button className={'px-4 py-4 bg-amber-500'} onClick={() => handleCategoryClick('Physical')}>
