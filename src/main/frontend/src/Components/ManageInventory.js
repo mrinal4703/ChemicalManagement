@@ -138,63 +138,113 @@ const ManageInventory = ({onToggleManageInventory}) => {
 
     return (
         <div>
-            <h1 className={'text-3xl my-2 '}>MANAGE INVENTORY</h1>
+            {/*<h1 className={'text-3xl my-2 '}>MANAGE INVENTORY</h1>*/}
+            <h1 className="text-4xl my-4 font-bold text-center text-gray-900">
+                <span className="text-yellow-600">MANAGE</span>{" "}
+                <span className="text-green-600">INVENTORY</span>
+            </h1>
+
+
             <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
             <div className={'flex flex-row gap-10 justify-evenly mt-10'}>
-                <button className={'px-4 py-4 bg-amber-500'} onClick={() => handleCategoryClick('Physical')}>
-                    <h1>Physical Hazarduous</h1>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onClick={() => handleCategoryClick('Physical')}>
+                    <h1 className="text-lg font-bold">Physical Hazardous</h1>
                 </button>
-                <button className={'px-4 py-4 bg-amber-500'} onClick={() => handleCategoryClick('Environmental')}>
-                    <h1>Environmental Hazarduous</h1>
+                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                        onClick={() => handleCategoryClick('Environmental')}>
+                    <h1 className="text-lg font-bold">Environmental Hazardous</h1>
                 </button>
-                <button className={'px-4 py-4 bg-amber-500'} onClick={() => handleCategoryClick('Health')}>
-                    <h1>Health Hazarduous</h1>
+                <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                        onClick={() => handleCategoryClick('Health')}>
+                    <h1 className="text-lg font-bold">Health Hazardous</h1>
                 </button>
-                <button className={'px-4 py-4 bg-amber-500'} onClick={() => handleCategoryClick('Least to none')}>
-                    <h1>Least to non Hazarduous</h1>
+                <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                        onClick={() => handleCategoryClick('Least to none')}>
+                    <h1 className="text-lg font-bold">Least to non Hazardous</h1>
                 </button>
+
             </div>
             <div className="flex justify-center items-center my-10">
                 <div className={'align-middle'}>
                     <table className="table-auto mx-auto">
-                        <thead>
+                        <thead className="bg-gray-200">
                         <tr>
-                            <th className="px-4 py-2">Name</th>
-                            <th className="px-4 py-2">Hazard type</th>
-                            <th className="px-4 py-2">Nature</th>
-                            <th className="px-4 py-2">Expiry Date</th>
-                            <th className="px-4 py-2">pH Level</th>
-                            <th className="px-4 py-2">Quantity(present)</th>
-                            <th className="px-4 py-2">Download Report</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Name</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Hazard type</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Nature</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Expiry Date</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">pH Level</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Quantity(present)</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Download Report</th>
                         </tr>
                         </thead>
                         <tbody>
                         {chemicalReports.length > 0 ? (
                             chemicalReports.map(report => (
-                                <tr key={report.id}
-                                    // onClick={() => handleClick(report.id)}
-                                >
-                                    <td className="border px-4 py-2">{report.name}</td>
-                                    <td className="border px-4 py-2">{report.hazarduous}</td>
-                                    <td className="border px-4 py-2">{report.nature}</td>
-                                    <td className="border px-4 py-2">{report.expiry_date}</td>
-                                    <td className="border px-4 py-2">{report.pH}</td>
-                                    <td className="border px-4 py-2">{report.quantity}</td>
-                                    {/*<button>*/}
-                                    {/*    <td className="border px-4 py-2"><FaRegFilePdf /></td>*/}
-                                    {/*</button>*/}
-                                    <button onClick={() => handleDownloadPDF(report.id)}>
-                                        <FaRegFilePdf/>
-                                    </button>
+                                <tr key={report.id} className="border border-solid border-black">
+                                    <td className="border border-solid border-black px-4 py-2">{report.name}</td>
+                                    <td className="border border-solid border-black px-4 py-2">{report.hazarduous}</td>
+                                    <td className="border border-solid border-black px-4 py-2">{report.nature}</td>
+                                    <td className="border border-solid border-black px-4 py-2">{report.expiry_date}</td>
+                                    <td className="border border-solid border-black px-4 py-2">{report.pH}</td>
+                                    <td className="border border-solid border-black px-4 py-2">{report.quantity}</td>
+                                    <td className="border border-solid border-black px-4 py-2">
+                                        <button onClick={() => handleDownloadPDF(report.id)}>
+                                            <FaRegFilePdf/>
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                <td className="border border-solid border-black px-4 py-2 font-bold" colSpan="7">
+                                    No Data available currently!
+                                </td>
                             </tr>
-                            )}
+                        )}
                         </tbody>
                     </table>
+
+                    {/*<table className="table-auto mx-auto">*/}
+                    {/*    <thead>*/}
+                    {/*    <tr>*/}
+                    {/*        <th className="px-4 py-2">Name</th>*/}
+                    {/*        <th className="px-4 py-2">Hazard type</th>*/}
+                    {/*        <th className="px-4 py-2">Nature</th>*/}
+                    {/*        <th className="px-4 py-2">Expiry Date</th>*/}
+                    {/*        <th className="px-4 py-2">pH Level</th>*/}
+                    {/*        <th className="px-4 py-2">Quantity(present)</th>*/}
+                    {/*        <th className="px-4 py-2">Download Report</th>*/}
+                    {/*    </tr>*/}
+                    {/*    </thead>*/}
+                    {/*    <tbody>*/}
+                    {/*    {chemicalReports.length > 0 ? (*/}
+                    {/*        chemicalReports.map(report => (*/}
+                    {/*            <tr key={report.id}*/}
+                    {/*                // onClick={() => handleClick(report.id)}*/}
+                    {/*            >*/}
+                    {/*                <td className="border px-4 py-2">{report.name}</td>*/}
+                    {/*                <td className="border px-4 py-2">{report.hazarduous}</td>*/}
+                    {/*                <td className="border px-4 py-2">{report.nature}</td>*/}
+                    {/*                <td className="border px-4 py-2">{report.expiry_date}</td>*/}
+                    {/*                <td className="border px-4 py-2">{report.pH}</td>*/}
+                    {/*                <td className="border px-4 py-2">{report.quantity}</td>*/}
+                    {/*                /!*<button>*!/*/}
+                    {/*                /!*    <td className="border px-4 py-2"><FaRegFilePdf /></td>*!/*/}
+                    {/*                /!*</button>*!/*/}
+                    {/*                <button onClick={() => handleDownloadPDF(report.id)}>*/}
+                    {/*                    <FaRegFilePdf/>*/}
+                    {/*                </button>*/}
+                    {/*            </tr>*/}
+                    {/*        ))*/}
+                    {/*    ) : (*/}
+                    {/*        <tr>*/}
+                    {/*            <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>*/}
+                    {/*        </tr>*/}
+                    {/*        )}*/}
+                    {/*    </tbody>*/}
+                    {/*</table>*/}
                 </div>
             </div>
 

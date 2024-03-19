@@ -45,35 +45,68 @@ const Login = ({ onToggleSignUp }) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+        // <div>
+        //     <h2>Login</h2>
+        //     <form onSubmit={handleLogin}>
+        //         <div>
+        //             <label>Email:</label>
+        //             <input
+        //                 type="email"
+        //                 value={email}
+        //                 onChange={(e) => setEmail(e.target.value)}
+        //                 required
+        //             />
+        //         </div>
+        //         <div>
+        //             <label>Password:</label>
+        //             <input
+        //                 type="password"
+        //                 value={password}
+        //                 onChange={(e) => setPassword(e.target.value)}
+        //                 required
+        //             />
+        //         </div>
+        //         <button type="submit">Login</button>
+        //     </form>
+        //     <p>New here? <button onClick={onToggleSignUp}>Sign up here</button></p>
+        // </div>
+        <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg">
+            <h2 className="text-2xl mb-4">Login</h2>
+            <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                    <label>Email:</label>
+                    <label className="block">Email:</label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    <label className="block">Password:</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit"
+                        className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:bg-blue-700">
+                    Login
+                </button>
             </form>
-            <p>New here? <button onClick={onToggleSignUp}>Sign up here</button></p>
+            <p className="mt-4 text-center">New here? <button onClick={onToggleSignUp}
+                                                              className="text-blue-500 focus:outline-none">Sign up
+                here</button></p>
         </div>
+
     );
 };
 
-const SignUp = ({ onToggleLoginPage }) => {
+const SignUp = ({onToggleLoginPage}) => {
     const [email, setEmail] = useState('');
     const [selectedRank, setSelectedRank] = useState('');
     const [name, setName] = useState('');
@@ -115,46 +148,101 @@ const SignUp = ({ onToggleLoginPage }) => {
     };
 
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSignUp}>
+        // <div>
+        //     <h2>Sign Up</h2>
+        //     <form onSubmit={handleSignUp}>
+        //         <div>
+        //             <label>Name:</label>
+        //             <input
+        //                 type="text"
+        //                 value={name}
+        //                 onChange={(e) => setName(e.target.value)}
+        //                 required
+        //             />
+        //         </div>
+        //         <div>
+        //             <label>Email:</label>
+        //             <input
+        //                 type="email"
+        //                 value={email}
+        //                 onChange={(e) => setEmail(e.target.value)}
+        //                 required
+        //             />
+        //         </div>
+        //         <label>Select Rank:</label>
+        //         <select value={selectedRank} onChange={(e) => setSelectedRank(e.target.value)}>
+        //             {ranks.map(rank => (
+        //                 <option key={rank.id} value={rank.ranktype}>{rank.ranktype}</option>
+        //             ))}
+        //         </select>
+        //         <div>
+        //             <label>Password:</label>
+        //             <input
+        //                 type="password"
+        //                 value={password}
+        //                 onChange={(e) => setPassword(e.target.value)}
+        //                 required
+        //             />
+        //         </div>
+        //         <button type="submit">Sign Up</button>
+        //     </form>
+        //     <p>Already have an account? <button onClick={onToggleLoginPage}>Login here</button></p>
+        // </div>
+        <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg">
+            <h2 className="text-2xl mb-4">Sign Up</h2>
+            <form onSubmit={handleSignUp} className="space-y-4">
                 <div>
-                    <label>Name:</label>
+                    <label className="block">Name:</label>
                     <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label className="block">Email:</label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
                 </div>
-                <label>Select Rank:</label>
-                <select value={selectedRank} onChange={(e) => setSelectedRank(e.target.value)}>
-                    {ranks.map(rank => (
-                        <option key={rank.id} value={rank.ranktype}>{rank.ranktype}</option>
-                    ))}
-                </select>
                 <div>
-                    <label>Password:</label>
+                    <label className="block">Select Rank:</label>
+                    <select
+                        value={selectedRank}
+                        onChange={(e) => setSelectedRank(e.target.value)}
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                    >
+                        {ranks.map(rank => (
+                            <option key={rank.id} value={rank.ranktype}>{rank.ranktype}</option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block">Password:</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit"
+                        className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:bg-blue-700">
+                    Sign Up
+                </button>
             </form>
-            <p>Already have an account? <button onClick={onToggleLoginPage}>Login here</button></p>
+            <p className="mt-4 text-center">Already have an account? <button onClick={onToggleLoginPage}
+                                                                             className="text-blue-500 focus:outline-none">Login
+                here</button></p>
         </div>
+
     );
 };
 
@@ -172,9 +260,9 @@ const Authentication = () => {
     return (
         <div>
             {isLoginPage ? (
-                <Login onToggleSignUp={handleToggleSignUp} />
+                <Login onToggleSignUp={handleToggleSignUp}/>
             ) : (
-                <SignUp onToggleLoginPage={handleToggleLoginPage} />
+                <SignUp onToggleLoginPage={handleToggleLoginPage}/>
             )}
         </div>
     );

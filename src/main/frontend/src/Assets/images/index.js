@@ -3,5 +3,5 @@ import trackraw from './trackraw.jpeg'
 import shedule from './shedule.png'
 import assess from './assess.png'
 import orders from './orders.png'
-import logo from './LOGO.png'
+import logo from './LOGO2.png'
 export {inventory,trackraw,shedule,assess,orders,logo}
