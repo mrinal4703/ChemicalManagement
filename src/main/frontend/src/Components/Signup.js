@@ -31,7 +31,7 @@ const Login = ({ onToggleSignUp }) => {
             localStorage.setItem('loggedinuserrank', response.data.rankk);
             sessionStorage.setItem('loggedinuserrank', response.data.rankk);
             console.log(response.data.rankk);
-            let rank1= "Raw materials provider  ";
+            let rank1= "Raw materials provider";
             window.location.reload();
             if (response.data.rankk && !response.data.rankk.includes(rank1)) {
                 navigate('/Dashboard');

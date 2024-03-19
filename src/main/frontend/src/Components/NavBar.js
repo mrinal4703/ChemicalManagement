@@ -24,21 +24,17 @@ const NavBar = () => {
 
     const localStorageRank = localStorage.getItem('loggedinuserrank');
     const sessionStorageRank = sessionStorage.getItem('loggedinuserrank');
+
+    console.log(localStorageRank);
+    console.log(sessionStorageRank, "Hello");
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
         sessionStorage.removeItem('isLoggedIn');
         localStorage.removeItem('loggedinuseremail');
         sessionStorage.removeItem('loggedinuseremail');
-        // navigate('/Dashboard');
+        navigate('/');
         window.location.reload();
-        // if(rankk && (!rankk.match(rank1) || !rankk1.match(rank1))){
-        //     navigate('/RawMaterialProvider');
-        // }
-        // else{
-        //     navigate('/ProviderDashboard');
-        // }
         rank1="";
-        // console.log(rankk, rankk1);
         window.location.reload();
     };
     return (
@@ -52,7 +48,11 @@ const NavBar = () => {
                         {isLoggedIn || isLoggedIn_session ? (
                             <div className={'flex'}>
                                 <li className="menuItem mx-2">
-                                    <Link to="/Dashboard" onClick={handleMenuItemClick}>Dashboard</Link>
+                                    {rank1 && localStorage.getItem('loggedinuserrank').match(rank1) || rank1 && sessionStorage.getItem('loggedinuserrank').match(rank1) ?(
+                                        <Link to="/ProviderDashboard" onClick={handleMenuItemClick}>Dashboard</Link>
+                                    ) : (
+                                        <Link to="/Dashboard" onClick={handleMenuItemClick}>Dashboard</Link>
+                                    )}
                                 </li>
                                 <li className="menuItem mx-2" onClick={handleMenuItemClick}>
                                     <Link to="/" onClick={handleLogout}>Logout</Link>
