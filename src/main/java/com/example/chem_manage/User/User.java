@@ -52,6 +52,7 @@ public class User {
         this.password = password;
     }
 
+    @Column(unique = true)
     private String email;
     private String password;
     public User(Integer id, String name, String rankk, String email, String password) {

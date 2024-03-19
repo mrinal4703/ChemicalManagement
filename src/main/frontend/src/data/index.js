@@ -1,14 +1,18 @@
 export const ranks = [
     {
         id:1,
-        ranktype: 'CEO/Manager'
+        ranktype: 'Select'
     },
     {
         id:2,
-        ranktype: 'Assesser'
+        ranktype: 'CEO/Manager'
     },
     {
         id:3,
+        ranktype: 'Assesser'
+    },
+    {
+        id:4,
         ranktype: 'Employee'
     }
 ]
