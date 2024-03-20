@@ -2,8 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {screens :{
+    extend: {
+      screens :{
         'max-md' : {'max': '1024px'},
+      },
+      colors :{
+        'hexablue' : '#4e80b5',
       },
     },
   },
