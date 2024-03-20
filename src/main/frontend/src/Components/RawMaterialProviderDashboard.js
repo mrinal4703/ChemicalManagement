@@ -50,6 +50,9 @@ const RawMaterialProviderDashboard = () => {
         }
     }
 
+    console.log(email_session);
+    console.log(email);
+
     // console.log(localStorage.getItem('loggedinuserrank'));
 
     return (
@@ -70,66 +73,57 @@ const RawMaterialProviderDashboard = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {rawmaterialOrder.length > 0 ? (
-                            rawmaterialOrder.map(report => (
-                                <tr key={report.id}>
-                                    {email.match(report.providerComp) || email_session.match(report.providerComp) ? (
-                                        <>
-                                            {/*<td className="border px-4 py-2">{report.rawmaterial_name}</td>*/}
-                                            <td className="border px-4 py-2">{report.rawmaterial_for}</td>
-                                            <td className="border px-4 py-2">{report.quantity}</td>
-                                            <td className="border px-4 py-2">
-                                                {(() => {
-                                                    let time = new Date(report.ordertime);
-                                                    let dateFormatOptions = {
-                                                        month: 'long',
-                                                        day: 'numeric',
-                                                        year: 'numeric'
-                                                    };
-                                                    let timeFormatOptions = {
-                                                        hour: 'numeric',
-                                                        minute: 'numeric',
-                                                        hour12: true
-                                                    };
-                                                    let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                                    let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                                    return `${formattedDate} ${formattedTime}`;
-                                                })()}
+                        {rawmaterialOrder.map(report => (
+                            <tr key={report.id}>
+                                {email.match(report.providerComp) || email_session.match(report.providerComp) ? (
+                                    <>
+                                        <td className="border px-4 py-2">{report.rawmaterial_for}</td>
+                                        <td className="border px-4 py-2">{report.quantity}</td>
+                                        <td className="border px-4 py-2">
+                                            {(() => {
+                                                let time = new Date(report.ordertime);
+                                                let dateFormatOptions = {
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    year: 'numeric'
+                                                };
+                                                let timeFormatOptions = {
+                                                    hour: 'numeric',
+                                                    minute: 'numeric',
+                                                    hour12: true
+                                                };
+                                                let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                return `${formattedDate} ${formattedTime}`;
+                                            })()}
+                                        </td>
+                                        <td className="border px-4 py-2">{report.track}</td>
+                                        {(isLoggedIn && report.track.match('pending')) || (isLoggedIn_session && report.track.match('pending')) ? (
+                                            <td>
+                                                <form
+                                                    onSubmit={(event1) => handleReadySubmit(event1, report.id)}>
+                                                    <input
+                                                        type="number"
+                                                        value={report.id}
+                                                        name={'id'}
+                                                        className={'hidden'}
+                                                        required
+                                                    />
+                                                    <button
+                                                        className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
+                                                        type="submit">Ready?
+                                                    </button>
+                                                </form>
                                             </td>
-                                            <td className="border px-4 py-2">{report.track}</td>
-                                            {(isLoggedIn && report.track.match('pending')) || (isLoggedIn_session && report.track.match('pending')) ? (
-                                                <td>
-                                                    <form onSubmit={(event1) => handleReadySubmit(event1, report.id)}>
-                                                        <input
-                                                            type="number"
-                                                            value={report.id}
-                                                            name={'id'}
-                                                            className={'hidden'}
-                                                            required
-                                                        />
-                                                        {/*<input*/}
-                                                        {/*    type="number"*/}
-                                                        {/*    value={report.id}*/}
-                                                        {/*    name={'id'}*/}
-                                                        {/*    className={'hidden'}*/}
-                                                        {/*    required*/}
-                                                        {/*/>*/}
-                                                        <button className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
-                                                                type="submit">Ready?
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            ) : <td className="border px-4 py-2">Is already ready</td>}
-                                        </>
-                                    ) : (
-                                        <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>)}
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                        ) : <td className="border px-4 py-2">Is already ready</td>}
+                                    </>
+                                ) : null
+                                    //     (
+                                    //     <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                    // )
+                                }
                             </tr>
-                        )}
+                        ))}
 
                         </tbody>
 
