@@ -20,7 +20,7 @@ const WelcomePage = () => {
                             <p className="text-2xl mb-8">Top-ranked international supplier & distributor of chemicals,
                                 solvents & intermediates worldwide</p>
                             <div className='flex items-center px-40'>
-                                <Link to="/RawMaterialProvider" onClick={handleItemClick}>
+                                <Link to="/Signup" onClick={handleItemClick}>
                                     <button
                                         className='rounded px-10 py-3 text-white bg-blue-500 hover:bg-blue-600'>Sign up
                                     </button>
