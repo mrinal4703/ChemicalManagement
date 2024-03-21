@@ -51,70 +51,74 @@ export const hazard = [
 export const producedchemicals = [
     {
         id:1,
-        name:'Sulfuric Acid'
+        name:'Select chemicals'
     },
     {
         id:2,
-        name:'Chlorine'
+        name:'Sulfuric Acid'
     },
     {
         id:3,
-        name:'Sodium Hydroxide (caustic soda)'
+        name:'Chlorine'
     },
     {
         id:4,
-        name:'Ammonia'
+        name:'Sodium Hydroxide (caustic soda)'
     },
     {
         id:5,
-        name:'Hydrogen'
+        name:'Ammonia'
     },
     {
         id:6,
-        name:'Ethylene'
+        name:'Hydrogen'
     },
     {
         id:7,
-        name:'Propylene'
+        name:'Ethylene'
     },
     {
         id:8,
-        name:'Benzene'
+        name:'Propylene'
     },
     {
         id:9,
-        name:'Toluene'
+        name:'Benzene'
     },
     {
         id:10,
-        name:'Xylene'
+        name:'Toluene'
     },
     {
         id:11,
-        name:'Polyethylene'
+        name:'Xylene'
     },
     {
         id:12,
-        name:'Polypropylene'
+        name:'Polyethylene'
     },
     {
         id:13,
-        name:'Polyvinyl Chloride (PVC)'
+        name:'Polypropylene'
     },
     {
         id:14,
-        name:'Polystyrene'
+        name:'Polyvinyl Chloride (PVC)'
     },
     {
         id:15,
-        name:'Styrene-Butadiene rubber'
+        name:'Polystyrene'
     },
     {
         id:16,
-        name:'Polyisoprene Rubber (IR)'
+        name:'Styrene-Butadiene rubber'
     },
     {
         id:17,
+        name:'Polyisoprene Rubber (IR)'
+    },
+    {
+        id:18,
         name:'Nitrogen-based fertilizers (urea, ammonium nitrate)'
     },
     {
@@ -122,35 +126,35 @@ export const producedchemicals = [
         name:'Phosphate fertilizers'
     },
     {
-        id:19,
+        id:20,
         name:'Potash'
     },
     {
-        id:20,
+        id:21,
         name:'Active Pharmaceutical Ingredients (APIs)'
     },
     {
-        id:21,
+        id:22,
         name:'Drug Intermediates (Pharmaceuticals)'
     },
     {
-        id:22,
+        id:23,
         name:'Fine Chemicals (Specialty Chemicals)'
     },
     {
-        id:23,
+        id:24,
         name:'Performance Chemicals (Specialty Chemicals)'
     },
     {
-        id:24,
+        id:25,
         name:'Aromatics (Petrochemicals)'
     },
     {
-        id:25,
+        id:26,
         name:'Olefins (Petrochemicals)'
     },
     {
-        id:26,
+        id:27,
         name:'Industrial Gases'
     }
 ]

@@ -1,12 +1,15 @@
 package com.example.chem_manage.CompanyOrders;
 
-//@Entity
-//@Table(name="companyorders")
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="companyorders")
 public class CompanyOrders {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
-//    private String company_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String company_name;
+    private String order_list;
 //    @OneToMany
 //    @JoinTable(
 //            name = "companyorders_chemicalreport",
