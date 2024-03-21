@@ -9,7 +9,7 @@ public class CompanyOrders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String company_name;
-    private String order_list;
+//    private String order_list;
 //    @OneToMany
 //    @JoinTable(
 //            name = "companyorders_chemicalreport",
