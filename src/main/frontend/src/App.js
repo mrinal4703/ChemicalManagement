@@ -12,6 +12,8 @@ import RawMaterialProvider from "./Components/RawMaterialProvider";
 import RawMaterialProviderDashboard from "./Components/RawMaterialProviderDashboard";
 import AssessProduction from "./Components/AssessProduction";
 import WelcomePage from "./Components/WelcomePage";
+import CompanySignup from "./Components/CompanySignup";
+import CompanyDashboard from "./Components/CompanyDashboard";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
               <Route exact path="/AssessProduction" element={<AssessProduction/>}/>
               {/*<Route exact path="/Report/:id" element={<Report/>}/>*/}
               <Route exact path="/CompanyOrders" element={<CompanyOrders/>}/>
+              <Route exact path="/CompanySignup" element={<CompanySignup/>}/>
+              <Route exact path="/CompanyDashboard" element={<CompanyDashboard/>}/>
             </Routes>
           </div>
         </Router>

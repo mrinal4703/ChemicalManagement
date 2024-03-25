@@ -92,7 +92,7 @@ const SignUp = ({ onToggleLoginPage }) => {
         rankk = 'Raw materials provider'
         const selectedChemicalsString = selectedChemicals.join(', ');
         try {
-            const response = await axios.post('http://localhost:8085/newcompanysignup', { // Make a POST request to the sign-up endpoint
+            const response = await axios.post('http://localhost:8085/newprovidersignup', { // Make a POST request to the sign-up endpoint
                 provideremail: email,
                 providername:  name,
                 providerComp: compname,

@@ -14,6 +14,49 @@ export const ranks = [
     {
         id:4,
         ranktype: 'Employee'
+    },
+    {
+        id:5,
+        ranktype: 'Company'
+    }
+]
+
+export const comptype = [
+    {
+        id:1,
+        type:'Select your company type'
+    },
+    {
+        id:2,
+        type:'Agrochemical Companies'
+    },
+    {
+        id:3,
+        type:'Pharmaceutical Manufacturers'
+    },
+    {
+        id:4,
+        type:'Water Treatment Company'
+    },
+    {
+        id:5,
+        type:'Laboratory Chemical Dealers'
+    },
+    {
+        id:6,
+        type:'Educational Institute'
+    },
+    {
+        id:7,
+        type:'Cleaning and Hygiene Dwellers'
+    },
+    {
+        id:8,
+        type:'Construction Related'
+    },
+    {
+        id:9,
+        type:'Agriculture'
     }
 ]
 

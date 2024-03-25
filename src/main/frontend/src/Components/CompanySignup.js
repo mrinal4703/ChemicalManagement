@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios library
 import { useNavigate } from 'react-router-dom';
-import {ranks} from "../data";
+import {comptype, ranks} from "../data";
 
 const Login = ({ onToggleSignUp }) => {
     const [email, setEmail] = useState('');
@@ -31,18 +31,7 @@ const Login = ({ onToggleSignUp }) => {
             localStorage.setItem('loggedinuserrank', response.data.rankk);
             sessionStorage.setItem('loggedinuserrank', response.data.rankk);
             console.log(response.data.rankk);
-            let rank1= "Raw materials provider";
-            let rank2= "Company";
-            window.location.reload();
-            if (response.data.rankk && !response.data.rankk.includes(rank1) && !response.data.rankk.includes(rank2)) {
-                navigate('/Dashboard');
-            }
-            else if (response.data.rankk && response.data.rankk.includes(rank2)){
-                navigate('/CompanyDashboard');
-            }
-            else if(response.data.rankk && response.data.rankk.includes(rank1)) {
-                navigate('/ProviderDashboard');
-            }
+            navigate('/CompanyDashboard');
             window.location.reload();
         } catch (error) {
             console.error('Error logging in:', error);
@@ -113,9 +102,13 @@ const Login = ({ onToggleSignUp }) => {
 
 const SignUp = ({onToggleLoginPage}) => {
     const [email, setEmail] = useState('');
-    const [selectedRank, setSelectedRank] = useState('');
     const [name, setName] = useState('');
+    let [rankk, setRankk] = useState('');
     const [password, setPassword] = useState('');
+    const [compname, setCompName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState();
+    const [compType, setCompType] = useState('');
     // const navigate = useNavigate();
 
 
@@ -125,30 +118,37 @@ const SignUp = ({onToggleLoginPage}) => {
         console.log("Email:", email);
         console.log("Name:", name);
         console.log("Password:", password);
-
+        rankk = 'Company';
+        let orders=0;
         try {
             const response = await axios.post('http://localhost:8085/newuser', { // Make a POST request to the sign-up endpoint
                 email: email,
                 name: name,
-                rankk: selectedRank,
+                rankk: rankk,
                 password: password
             });
+            const response1 = await axios.post('http://localhost:8085/newcompanysignup', { // Make a POST request to the sign-up endpoint
+                company_email: email,
+                company_name:  compname,
+                manage_name: name,
+                rankk: rankk,
+                company_address: address,
+                company_type: compType,
+                company_phoneno: phone,
+                order_nos: orders,
+                password: password
+            });
+            console.log(response1.data); // Log the response from the backend
             console.log(response.data); // Log the response from the backend
 
             // After sign-up logic is done, you might want to clear the form fields
             setEmail('');
             setName('');
-            setSelectedRank('')
             setPassword('');
             onToggleLoginPage();
         } catch (error) {
             console.error('Error signing up:', error);
         }
-
-        const handleSelectChange = (event) => {
-            setSelectedRank(event.target.value);
-        }
-        console.log(handleSelectChange);
 
     };
 
@@ -193,15 +193,25 @@ const SignUp = ({onToggleLoginPage}) => {
         //     </form>
         //     <p>Already have an account? <button onClick={onToggleLoginPage}>Login here</button></p>
         // </div>
-        <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg">
+        <div className="max-w-md mx-auto p-4 mb-4 border rounded-lg shadow-lg">
             <h2 className="text-2xl mb-4">Sign Up</h2>
             <form onSubmit={handleSignUp} className="space-y-4">
                 <div>
-                    <label className="block">Name:</label>
+                    <label className="block">Manager's Name:</label>
                     <input
-                        type="text"
+                        type="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+                <div>
+                    <label className="block">Company's Name:</label>
+                    <input
+                        type="text"
+                        value={compname}
+                        onChange={(e) => setCompName(e.target.value)}
                         required
                         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     />
@@ -217,16 +227,43 @@ const SignUp = ({onToggleLoginPage}) => {
                     />
                 </div>
                 <div>
-                    <label className="block">Select Rank:</label>
+                    <label className="block">Select Type:</label>
                     <select
-                        value={selectedRank}
-                        onChange={(e) => setSelectedRank(e.target.value)}
+                        value={compType}
+                        onChange={(e) => setCompType(e.target.value)}
                         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     >
-                        {ranks.map(rank => (
-                            <option key={rank.id} value={rank.ranktype}>{rank.ranktype}</option>
+                        {comptype.map(type => (
+                            <option key={type.id} value={type.type}>{type.type}</option>
                         ))}
                     </select>
+                </div>
+                <div>
+                    <label className="block">Address:</label>
+                    <textarea
+                        typeof="address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+                <div>
+                    <label className="block">Phone Number:</label>
+                    <input
+                        type="text"
+                        pattern="[0-9]*"
+                        maxLength="10"
+                        value={phone}
+                        onChange={(e) => {
+                            const enteredValue = e.target.value;
+                            const onlyNumbers = enteredValue.replace(/\D/g, ''); // Replace any non-digit character with empty string
+                            setPhone(onlyNumbers); // Update the state with only numeric value
+                        }}
+                        required
+                        className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                    />
+
                 </div>
                 <div>
                     <label className="block">Password:</label>

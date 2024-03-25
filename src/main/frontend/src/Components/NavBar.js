@@ -22,6 +22,7 @@ const NavBar = () => {
         setToggle(true);
     };
     let rank1="Raw materials provider";
+    let rank2="Company";
 
     const localStorageRank = localStorage.getItem('loggedinuserrank');
     const sessionStorageRank = sessionStorage.getItem('loggedinuserrank');
@@ -49,12 +50,15 @@ const NavBar = () => {
                             {isLoggedIn || isLoggedIn_session ? (
                                 <div className={'flex'}>
                                     <li className="menuItem mx-2">
-                                        {rank1 && localStorage.getItem('loggedinuserrank').match(rank1) || rank1 && sessionStorage.getItem('loggedinuserrank').match(rank1) ? (
+                                        {rank1 && (localStorage.getItem('loggedinuserrank').match(rank1) || sessionStorage.getItem('loggedinuserrank').match(rank1)) ? (
                                             <Link to="/ProviderDashboard" onClick={handleMenuItemClick}>Dashboard</Link>
+                                        ) : rank2 && (localStorage.getItem('loggedinuserrank').match(rank2) || sessionStorage.getItem('loggedinuserrank').match(rank2)) ? (
+                                            <Link to="/CompanyDashboard" onClick={handleMenuItemClick}>Dashboard</Link>
                                         ) : (
                                             <Link to="/Dashboard" onClick={handleMenuItemClick}>Dashboard</Link>
                                         )}
                                     </li>
+
                                     <li className="menuItem mx-2" onClick={handleMenuItemClick}>
                                         <Link to="/" onClick={handleLogout}>Logout</Link>
                                     </li>

@@ -14,7 +14,7 @@ public class RawMaterialsProviderController {
     @Autowired
     RawMaterialsProviderController(RawMaterialsProviderRepository rawMaterialsProviderRepository, RawMaterialsProviderService rawMaterialsProviderService) {this.rawMaterialsProviderRepository = rawMaterialsProviderRepository;this.rawMaterialsProviderService = rawMaterialsProviderService;}
 
-    @PostMapping("/newcompanysignup")
+    @PostMapping("/newprovidersignup")
     public RawMaterialsProvider newSignup(@RequestBody RawMaterialsProvider newRawMaterialsProvider){
         try{
             RawMaterialsProvider savedRawMaterialsProvider = rawMaterialsProviderRepository.save(newRawMaterialsProvider);
