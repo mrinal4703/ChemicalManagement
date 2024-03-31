@@ -30,42 +30,6 @@ const CompanyDashboard = () => {
     const [accordionIsOpen, setAccordionIsOpen] = useState(false);
     const [chemicals, setChemicals] = useState([{ name: '', quantity: '' }]);
 
-    const handleChange = (index, event) => {
-        const { name, value } = event.target;
-        const list = [...chemicals];
-        list[index][name] = value;
-        setChemicals(list);
-    };
-
-    const handleAdd = () => {
-        setChemicals([...chemicals, { name: '', quantity: '' }]);
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        let email1 = "";
-        if (email && email_session && email.match(email_session)) {
-            email1 = email_session;
-        }
-        const pend = "pending";
-        const ordertime = new Date();
-        const orderList = chemicals.map(({ name, quantity }) => `${name} (${quantity})`).join(' Kg, ') + ' Kg';
-        try {
-            const response = await axios.post('http://localhost:8085/orderchemicals', {
-                company_email: email1,
-                order_date: ordertime,
-                order_list: orderList,
-                order_status: pend
-            });
-            setChemicals([{ name: '', quantity: '' }]);
-            closeModal();
-            window.location.reload();
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error ordering raw material:', error);
-            alert('Error placing order. Please try again.');
-        }
-    };
 
     function openModal() {
         setIsOpen(true);
@@ -123,6 +87,43 @@ const CompanyDashboard = () => {
             setCalculatedValue(null);
         }
     }
+
+    const handleChange = (index, event) => {
+        const { name, value } = event.target;
+        const list = [...chemicals];
+        list[index][name] = value;
+        setChemicals(list);
+    };
+
+    const handleAdd = () => {
+        setChemicals([...chemicals, { name: '', quantity: '' }]);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        let email1 = "";
+        if (email && email_session && email.match(email_session)) {
+            email1 = email_session;
+        }
+        const pend = "pending";
+        const ordertime = new Date();
+        const orderList = chemicals.map(({ name, quantity }) => `${name} (${quantity})`).join(' Kg, ') + ' Kg';
+        try {
+            const response = await axios.post('http://localhost:8085/orderchemicals', {
+                company_email: email1,
+                order_date: ordertime,
+                order_list: orderList,
+                order_status: pend
+            });
+            setChemicals([{ name: '', quantity: '' }]);
+            closeModal();
+            window.location.reload();
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error ordering raw material:', error);
+            alert('Error placing order. Please try again.');
+        }
+    };
 
     const [ordersstack, setOrdersstack] = useState([]);
 
@@ -211,12 +212,14 @@ const CompanyDashboard = () => {
                             <select
                                 id={`chemical-${index}`}
                                 name="name"
+                                required
                                 value={chemical.name}
                                 onChange={(event) => handleChange(index, event)}
                             >
                                 <option value="">Select chemical</option>
                                 {producedchemicals.map(chem => (
-                                    <option key={chem.id} value={chem.name}>{chem.name}</option>
+                                    chem.id !== 1 && (
+                                    <option key={chem.id} value={chem.name}>{chem.name}</option>)
                                 ))}
                             </select>
                             <label htmlFor={`quantity-${index}`}>Quantity:</label>
@@ -224,6 +227,7 @@ const CompanyDashboard = () => {
                                 id={`quantity-${index}`}
                                 type="number"
                                 name="quantity"
+                                required
                                 value={chemical.quantity}
                                 onChange={(event) => handleChange(index, event)}
                             />
@@ -262,7 +266,7 @@ const CompanyDashboard = () => {
                         {calculatedValue !== null && (
                             <>
                                 <p>Density: {calculateDensity(chem)} Kg/Ltrs</p>
-                                <p>Order for: {calculatedValue.toFixed(3)} Kgs</p>
+                                <p>Order amount: {calculatedValue.toFixed(3)} Kgs</p>
                             </>
                         )}
                     </div>

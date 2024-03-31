@@ -14,6 +14,7 @@ import AssessProduction from "./Components/AssessProduction";
 import WelcomePage from "./Components/WelcomePage";
 import CompanySignup from "./Components/CompanySignup";
 import CompanyDashboard from "./Components/CompanyDashboard";
+import Inventory from "./Components/Inventory";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/Signup" element={<Signup/>}/>
               <Route exact path="/Dashboard" element={<Dashboard/>}/>
               <Route exact path="/ManageInventory" element={<ManageInventory/>}/>
+              <Route exact path="/Inventory" element={<Inventory/>}/>
               <Route exact path="/TrackOrderRawMaterials" element={<TrackOrderRawMaterials/>}/>
               <Route exact path="/ScheduleProduction" element={<ScheduleProduction/>}/>
               <Route exact path="/RawMaterialProvider" element={<RawMaterialProvider/>}/>
