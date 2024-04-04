@@ -1,7 +1,5 @@
 package com.example.chem_manage.CompanyOrderList;
 
-import com.example.chem_manage.ChemicalReport.ChemicalReport;
-import com.example.chem_manage.Chemicals.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +33,11 @@ public class CompanyOrderListController {
         }
     }
 
+    @GetMapping("/getdeliveryforcardsstatus")
+    public List<String> getDeliveryStatus() {
+        return companyOrderListRepository.getAllOrderStatus();
+    }
+
     @PutMapping("/updateDelivery/{companyEmail}")
     public ResponseEntity<?> updateCompanyOrderList(@PathVariable String companyEmail, @RequestBody CompanyOrderList updatedCompanyList) {
         try {
@@ -42,6 +45,7 @@ public class CompanyOrderListController {
             if (optionalExistingOrderList.isPresent()) {
                 CompanyOrderList existingOrderList = optionalExistingOrderList.get();
                 existingOrderList.setOrder_status(updatedCompanyList.getOrder_status());
+                existingOrderList.setDelivered_date(updatedCompanyList.getDelivered_date());
                 CompanyOrderList updatedOrderList = companyOrderListRepository.save(existingOrderList);
                 return ResponseEntity.ok(updatedOrderList);
             } else {
@@ -51,4 +55,6 @@ public class CompanyOrderListController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating order list: " + e.getMessage());
         }
     }
+
+
 }

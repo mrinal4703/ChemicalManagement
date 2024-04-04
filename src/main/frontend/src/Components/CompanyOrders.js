@@ -7,14 +7,13 @@ import Modal from "react-modal";
 import {assess} from "../Assets/images";
 import {CiDeliveryTruck} from "react-icons/ci";
 
-
 function ChemicalDeliveryCard({ delivery, producedchemicals }) {
     const [chemicals, setChemicals] = useState([{ name: '', quantity: '' }]);
     const [chemlist, setChemlist] = useState([]);
     useEffect(() => {
         const fetchOrders1 = async () => {
             try {
-                let url = `http://localhost:8085/chemical-reports`;
+                const url = `http://localhost:8085/chemical-reports`;
                 const response = await axios.get(url);
                 setChemlist(response.data);
                 console.log(response)
@@ -47,33 +46,32 @@ function ChemicalDeliveryCard({ delivery, producedchemicals }) {
                 console.error('Error fetching chemicals', error);
             })
     }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         let emaill = delivery[1];
-
         let pend = "Delivered";
-        const orderList = chemicals.map(({name, quantity}) => `${name} (${quantity})`).join(' Kg, ') + ' Kg';
-
-        const companyOrderToUpdate = chemlst.find(deliver => deliver.company_email === emaill);
-        const updatedDeli = { ...companyOrderToUpdate,
-            order_status: pend,
-        };
-
+        let deliverDate= new Date();
         try {
-            const response = await axios.post('http://localhost:8085/cofirmdelivery', {
-                company_email: emaill,
-                order_list: orderList
-            });
-            const response1 = await axios.put(`http://localhost:8085/updateDelivery/${emaill}`, updatedDeli);
+            const updates = chemicals.map(({ name, quantity }) => ({
+                name: name,
+                quantity: parseFloat(quantity)
+            }));
 
-            setChemicals([{name: '', quantity: ''}]);
+            await axios.put('http://localhost:8085/updateChemicalReportQuantities', updates);
+
+            const companyOrderToUpdate = chemlst.find(deliver => deliver.company_email === emaill);
+            const updatedDeli = { ...companyOrderToUpdate, order_status: pend, delivered_date: deliverDate };
+            await axios.put(`http://localhost:8085/updateDelivery/${emaill}`, updatedDeli);
+
+            setChemicals([{ name: '', quantity: '' }]);
             window.location.reload();
-            console.log(response.data);
         } catch (error) {
-            console.error('Error ordering raw material:', error);
-            alert('Error placing order. Please try again.');
+            console.error('Error updating chemical quantities:', error);
+            alert('Error updating chemical quantities. Please try again.');
         }
     };
+
 
     return (
         <div className="card flex flex-col my-2 justify-between p-6 border-2 shadow-lg w-96 h-max">
@@ -130,6 +128,9 @@ function ChemicalDeliveryCard({ delivery, producedchemicals }) {
     );
 }
 
+export { ChemicalDeliveryCard };
+
+
 const Accordion = ({isOpen, children}) => {
     return (
         <div style={{display: isOpen ? 'block' : 'none'}}>
@@ -168,7 +169,6 @@ const CompanyOrders = () => {
     }
 
     function afterOpenModal() {
-        // references are now sync'd and can be accessed.
         subtitle.style.color = '#f00';
     }
 
@@ -229,7 +229,7 @@ const CompanyOrders = () => {
                 const response1 = await axios.get(url1);
                 setOrdersstack(response.data);
                 setOrdersstackCount(response1.data);
-                console.log(response)
+                console.log(response1, ' status');
             } catch (error) {
                 console.log('Error fetching provider:', error);
             }
@@ -261,12 +261,12 @@ const CompanyOrders = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8085/generatedelivery', { // Make a POST request to the sign-up endpoint
+            const response = await axios.post('http://localhost:8085/generatedelivery', {
                 company_email: maill
             });
             closeModal();
             window.location.reload();
-            console.log(response.data); // Log the response from the backend
+            console.log(response.data);
 
         } catch (error) {
             console.error('Error signing up:', error);
@@ -278,12 +278,16 @@ const CompanyOrders = () => {
     // const [chemicals, setChemicals] = useState([{ name: '', quantity: '' }]);
 
     const [deliveryStack, setDeliveryStack] = useState([]);
+    const [statuss, setStatuss] = useState('');
     useEffect(() => {
         const fetchDelivery = async () => {
             try {
                 let url = 'http://localhost:8085/getdeliveryforcards';
                 const response = await axios.get(url);
                 setDeliveryStack(response.data);
+                let url1 = 'http://localhost:8085/getdeliveryforcardsstatus';
+                const response1 = await axios.get(url1);
+                setStatuss(response1.data);
                 console.log(response);
             } catch (error) {
                 console.log('Error fetching provider:', error);
@@ -430,13 +434,17 @@ const CompanyOrders = () => {
                 </form>
             </Modal>
             <div className={'flex flex-row gap-3 justify-center'}>
-                {deliveryStack.length > 0 && deliveryStack.map((delivery, index) => (
-                    <ChemicalDeliveryCard
-                        key={index}
-                        delivery={delivery}
-                        producedchemicals={producedchemicals} // Assuming producedchemicals is available
-                    />
-                ))}
+                {deliveryStack.length > 0 && deliveryStack
+                    .map((delivery, index) => (
+                        delivery[10] === "pending" ? (
+                            <ChemicalDeliveryCard
+                                key={index}
+                                delivery={delivery}
+                                producedchemicals={producedchemicals}
+                            />
+                        ) : (<></>)
+                    ))
+                }
             </div>
         </div>
     );

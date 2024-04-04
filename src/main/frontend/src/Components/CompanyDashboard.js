@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Modal from "react-modal";
-import { IoClose } from "react-icons/io5";
-import { producedchemicals } from "../data";
+import {IoClose} from "react-icons/io5";
+import {producedchemicals} from "../data";
 import axios from "axios";
-import { email, email_session } from "../data/constants";
+import {email, email_session} from "../data/constants";
 
-const Accordion = ({ isOpen, children }) => {
+const Accordion = ({isOpen, children}) => {
     return (
-        <div style={{ display: isOpen ? 'block' : 'none' }}>
+        <div style={{display: isOpen ? 'block' : 'none'}}>
             {children}
         </div>
     );
@@ -28,7 +28,7 @@ const CompanyDashboard = () => {
     let subtitle;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [accordionIsOpen, setAccordionIsOpen] = useState(false);
-    const [chemicals, setChemicals] = useState([{ name: '', quantity: '' }]);
+    const [chemicals, setChemicals] = useState([{name: '', quantity: ''}]);
 
 
     function openModal() {
@@ -89,14 +89,14 @@ const CompanyDashboard = () => {
     }
 
     const handleChange = (index, event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         const list = [...chemicals];
         list[index][name] = value;
         setChemicals(list);
     };
 
     const handleAdd = () => {
-        setChemicals([...chemicals, { name: '', quantity: '' }]);
+        setChemicals([...chemicals, {name: '', quantity: ''}]);
     };
 
     const handleSubmit = async (event) => {
@@ -107,7 +107,7 @@ const CompanyDashboard = () => {
         }
         const pend = "pending";
         const ordertime = new Date();
-        const orderList = chemicals.map(({ name, quantity }) => `${name} (${quantity})`).join(' Kg, ') + ' Kg';
+        const orderList = chemicals.map(({name, quantity}) => `${name} (${quantity})`).join(' Kg, ') + ' Kg';
         try {
             const response = await axios.post('http://localhost:8085/orderchemicals', {
                 company_email: email1,
@@ -115,7 +115,7 @@ const CompanyDashboard = () => {
                 order_list: orderList,
                 order_status: pend
             });
-            setChemicals([{ name: '', quantity: '' }]);
+            setChemicals([{name: '', quantity: ''}]);
             closeModal();
             window.location.reload();
             console.log(response.data);
@@ -161,35 +161,82 @@ const CompanyDashboard = () => {
                     litres of particular chemicals</p>
             </div>
             {ordersstack.length > 0 && (
-                ordersstack.some(order => email.match(order.company_email) || email_session.match(order.company_email)) ? (
-                    <div className="flex justify-center items-center my-10">
-                        <div className={'align-middle'}>
-                            <table className="table-auto mx-auto">
-                                <thead>
-                                <tr>
-                                    <th className="px-4 py-2">Order List</th>
-                                    <th className="px-4 py-2">Date of order</th>
-                                    <th className="px-4 py-2">Status of order</th>
+                <div className="flex justify-center items-center my-10">
+                    <div className={'align-middle'}>
+                        <table className="table-auto mx-auto">
+                            <thead>
+                            <tr>
+                                <th className="px-4 py-2">Order List</th>
+                                <th className="px-4 py-2">Date of order</th>
+                                <th className="px-4 py-2">Status of order</th>
+                                <th className="px-4 py-2">Date Delivered on</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {ordersstack.map(order => (
+                                <tr key={order.id}>
+                                    {(email.match(order.company_email) || email_session.match(order.company_email)) && (
+                                        <>
+                                            <td className="border px-4 py-2">{order.order_list}</td>
+                                            <td className="border px-4 py-2">
+                                                {(() => {
+                                                    let time = new Date(order.order_date);
+                                                    let dateFormatOptions = {
+                                                        month: 'long',
+                                                        day: 'numeric',
+                                                        year: 'numeric'
+                                                    };
+                                                    let timeFormatOptions = {
+                                                        hour: 'numeric',
+                                                        minute: 'numeric',
+                                                        hour12: true
+                                                    };
+                                                    let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                    let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                    return `${formattedDate} ${formattedTime}`;
+                                                })()}
+                                            </td>
+                                            <td className="border px-4 py-2">{order.order_status}</td>
+                                            <td className="border px-4 py-2">
+                                                {order.delivered_date !== null ? (
+                                                    <>
+                                                        {(() => {
+                                                            let time = new Date(order.delivered_date);
+                                                            let dateFormatOptions = {
+                                                                month: 'long',
+                                                                day: 'numeric',
+                                                                year: 'numeric'
+                                                            };
+                                                            let timeFormatOptions = {
+                                                                hour: 'numeric',
+                                                                minute: 'numeric',
+                                                                hour12: true
+                                                            };
+                                                            let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                            let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                            return `${formattedDate} ${formattedTime}`;
+                                                        })()}
+                                                    </>
+                                                ) : (
+                                                    <p>Soon!</p>
+                                                )}
+
+                                            </td>
+                                        </>
+                                    )}
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {ordersstack.map(order => (
-                                    <tr key={order.id}>
-                                        <td className="border px-4 py-2">{order.order_list}</td>
-                                        <td className="border px-4 py-2">{order.order_date}</td>
-                                        <td className="border px-4 py-2">{order.order_status}</td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
+                            ))}
+                            </tbody>
+                        </table>
                     </div>
-                ) : (
-                    <div className="flex justify-center items-center my-10">
-                        <div className="border px-4 py-2">No matching data available currently!</div>
-                    </div>
-                )
+                </div>
             )}
+            {ordersstack.length === 0 && (
+                <div className="flex justify-center items-center my-10">
+                    <div className="border px-4 py-2">No matching data available currently!</div>
+                </div>
+            )}
+
 
             <button
                 className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}
@@ -203,7 +250,8 @@ const CompanyDashboard = () => {
                 contentLabel="Example Modal"
             >
                 <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order</h2>
-                <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/></button>
+                <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/>
+                </button>
                 <form className={'my-5'} onSubmit={handleSubmit}>
                     <div><h1>Place order for chemicals</h1></div>
                     {chemicals.map((chemical, index) => (
@@ -219,7 +267,7 @@ const CompanyDashboard = () => {
                                 <option value="">Select chemical</option>
                                 {producedchemicals.map(chem => (
                                     chem.id !== 1 && (
-                                    <option key={chem.id} value={chem.name}>{chem.name}</option>)
+                                        <option key={chem.id} value={chem.name}>{chem.name}</option>)
                                 ))}
                             </select>
                             <label htmlFor={`quantity-${index}`}>Quantity:</label>

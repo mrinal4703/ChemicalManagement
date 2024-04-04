@@ -6,6 +6,7 @@ import {IoClose} from "react-icons/io5";
 // import {useNavigate} from "react-router-dom";
 import {FaRegFilePdf} from "react-icons/fa6";
 import jsPDF from "jspdf";
+import {logo} from "../Assets/images";
 
 const customStyles = {
     content: {
@@ -111,25 +112,55 @@ const ManageInventory = ({onToggleManageInventory}) => {
         try {
             const response = await axios.get(`http://localhost:8085/getreport/${id}`);
             const chemicalReport = response.data;
+            let name = '';
 
             const pdf = new jsPDF();
             chemicalReport.forEach(report => {
-                pdf.text(20,10, `Company Name`);
-                pdf.text(20, 20, `Name: ${report.name}`);
-                pdf.text(20, 30, `Expiry: ${report.expiry_date}`);
-                pdf.text(20, 40, `Hazarduous: ${report.hazarduous}`);
-                pdf.text(20, 50, `Nature: ${report.nature}`);
-                pdf.text(20, 60, `pH: ${report.pH}`);
-                pdf.text(20, 70, `Production Date: ${report.production_date}`);
-                pdf.text(20, 80, `Quantity: ${report.quantity} ${report.quantity_type}`);
-                pdf.text(20, 90, `Quantity Type: ${report.quantity_type}`);
-                pdf.text(20, 100, `Volatility: ${report.volatility}`);
-                pdf.text(20, 110, `Persistence: ${report.persistence}`);
-                pdf.text(20, 120, `Toxicity: ${report.toxicity}`);
-                pdf.addPage();
+                name = report.name;
+                pdf.addImage(logo, 'JPEG', 60, 10, 100, 50);
+                pdf.text(20, 70, `Name: ${report.name}`);
+                pdf.text(20, 80, `Expiry: ${report.expiry_date}`);
+                pdf.text(20, 90, `Hazarduous: ${report.hazarduous}`);
+                pdf.text(20, 100, `Nature: ${report.nature}`);
+                pdf.text(20, 110, `pH: ${report.pH}`);
+                pdf.text(20, 120, `Production Date: ${report.production_date}`);
+                pdf.text(20, 130, `Quantity: ${report.quantity} ${report.quantity_type}`);
+                pdf.text(20, 140, `Quantity Type: ${report.quantity_type}`);
+                pdf.text(20, 150, `Volatility: ${report.volatility}`);
+                pdf.text(20, 160, `Persistence: ${report.persistence}`);
+                pdf.text(20, 170, `Toxicity: ${report.toxicity}`);
+                // pdf.addPage();
             });
 
-            pdf.save(`Report_${id}.pdf`);
+            pdf.save(`${name} Report for Seemsan.pdf`);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+        }
+    };
+
+    const handleDownloadPDF1 = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:8085/getreport/${id}`);
+            const chemicalReport = response.data;
+            let name = '';
+
+            const pdf = new jsPDF();
+            chemicalReport.forEach(report => {
+                name = report.name;
+                pdf.addImage(logo, 'JPEG', 60, 10, 100, 50);
+                pdf.text(20, 70, 'Company Name');
+                pdf.text(20, 80, `Name: ${report.name}`);
+                pdf.text(20, 90, `Expiry: ${report.expiry_date}`);
+                pdf.text(20, 100, `Hazarduous: ${report.hazarduous}`);
+                pdf.text(20, 110, `Nature: ${report.nature}`);
+                pdf.text(20, 120, `pH: ${report.pH}`);
+                pdf.text(20, 130, `Volatility: ${report.volatility}`);
+                pdf.text(20, 140, `Persistence: ${report.persistence}`);
+                pdf.text(20, 150, `Toxicity: ${report.toxicity}`);
+                // pdf.addPage();
+            });
+
+            pdf.save(`${name}.pdf`);
         } catch (error) {
             console.error('Error downloading PDF:', error);
         }
@@ -165,7 +196,7 @@ const ManageInventory = ({onToggleManageInventory}) => {
                 </button>
 
             </div>
-            <div className="flex justify-center items-center my-10">
+            <div className="flex justify-center items-center mx-3 my-10">
                 <div className={'align-middle'}>
                     <table className="table-auto mx-auto">
                         <thead className="bg-gray-200">
@@ -177,6 +208,7 @@ const ManageInventory = ({onToggleManageInventory}) => {
                             <th className="px-4 py-2 border border-solid border-black font-bold">pH Level</th>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Quantity(present)</th>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Download Report</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Report for company</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -186,11 +218,32 @@ const ManageInventory = ({onToggleManageInventory}) => {
                                     <td className="border border-solid border-black px-4 py-2">{report.name}</td>
                                     <td className="border border-solid border-black px-4 py-2">{report.hazarduous}</td>
                                     <td className="border border-solid border-black px-4 py-2">{report.nature}</td>
-                                    <td className="border border-solid border-black px-4 py-2">{report.expiry_date}</td>
+                                    {/*<td className="border border-solid border-black px-4 py-2">{report.expiry_date}</td>*/}
+                                    {(() => {
+                                        let time = new Date(report.expiry_date);
+                                        let dateFormatOptions = {
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        };
+                                        let timeFormatOptions = {
+                                            hour: 'numeric',
+                                            minute: 'numeric',
+                                            hour12: true
+                                        };
+                                        let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                        let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                        return `${formattedDate} ${formattedTime}`;
+                                    })()}
                                     <td className="border border-solid border-black px-4 py-2">{report.pH}</td>
                                     <td className="border border-solid border-black px-4 py-2">{report.quantity}</td>
                                     <td className="border border-solid border-black px-4 py-2">
                                         <button onClick={() => handleDownloadPDF(report.id)}>
+                                            <FaRegFilePdf/>
+                                        </button>
+                                    </td>
+                                    <td className="border border-solid border-black px-4 py-2">
+                                        <button onClick={() => handleDownloadPDF1(report.id)}>
                                             <FaRegFilePdf/>
                                         </button>
                                     </td>
@@ -249,10 +302,10 @@ const ManageInventory = ({onToggleManageInventory}) => {
             </div>
 
 
-            <button
-                className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}
-                onClick={openModal}>Create report
-            </button>
+            {/*<button*/}
+            {/*    className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}*/}
+            {/*    onClick={openModal}>Create report*/}
+            {/*</button>*/}
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={afterOpenModal}

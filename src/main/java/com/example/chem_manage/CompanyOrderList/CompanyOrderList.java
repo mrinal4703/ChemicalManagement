@@ -47,11 +47,11 @@ public class CompanyOrderList {
         this.order_date = order_date;
     }
 
-    public String getDelivered_date() {
+    public Date getDelivered_date() {
         return delivered_date;
     }
 
-    public void setDelivered_date(String delivered_date) {
+    public void setDelivered_date(Date delivered_date) {
         this.delivered_date = delivered_date;
     }
 
@@ -60,7 +60,7 @@ public class CompanyOrderList {
     private Integer id;
     private String company_email;
 
-    public CompanyOrderList(Integer id, String company_email, String order_list, String order_status, Date order_date, String delivered_date) {
+    public CompanyOrderList(Integer id, String company_email, String order_list, String order_status, Date order_date, Date delivered_date) {
         this.id = id;
         this.company_email = company_email;
         this.order_list = order_list;
@@ -76,5 +76,5 @@ public class CompanyOrderList {
     private String order_list;
     private String order_status;
     private Date  order_date;
-    private String delivered_date;
+    private Date delivered_date;
 }

@@ -67,6 +67,10 @@ public class ChemicalReport {
         this.nature = nature;
     }
 
+    public void updateQuantity(Long quantity) {
+        this.quantity -= quantity;
+    }
+
     public Long getQuantity() {
         return quantity;
     }
