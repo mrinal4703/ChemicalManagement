@@ -5,7 +5,7 @@ export const ranks = [
     },
     {
         id:2,
-        ranktype: 'CEO/Manager'
+        ranktype: 'CEO'
     },
     {
         id:3,
@@ -13,10 +13,14 @@ export const ranks = [
     },
     {
         id:4,
-        ranktype: 'Employee'
+        ranktype: 'Distributor'
     },
     {
         id:5,
+        ranktype: 'Inventory Manager'
+    },
+    {
+        id:6,
         ranktype: 'Company'
     }
 ]
