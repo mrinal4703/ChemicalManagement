@@ -39,6 +39,10 @@ const Inventory = () => {
 
             <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
             <div className={'flex flex-row gap-10 justify-evenly mt-10'}>
+                <button className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-black"
+                        onClick={() => window.location.reload()}>
+                    <h1 className="text-lg font-bold">All</h1>
+                </button>
                 <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                         onClick={() => handleCategoryClick('Physical')}>
                     <h1 className="text-lg font-bold">Physical Hazardous</h1>
@@ -60,7 +64,7 @@ const Inventory = () => {
             <div className="flex justify-center items-center my-10">
                 <div className={'align-middle'}>
                     <table className="table-auto mx-auto">
-                        <thead className="bg-gray-200">
+                    <thead className="bg-gray-200">
                         <tr>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Name</th>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Hazard type</th>

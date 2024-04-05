@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Modal from "react-modal";
 import {IoClose} from "react-icons/io5";
 import axios from "axios";
+import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
+import Dashboard from "./Dashboard";
 
 const customStyles = {
     content: {
@@ -195,61 +197,117 @@ const ScheduleProduction = () => {
     };
 
     return (
-        <div>
-            <h1 className={'text-3xl my-2 '}>Schedule production</h1>
-            <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
-            <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click here&nbsp;&nbsp;
-                <button
-                    className={'underline text-2xl text-lg'}
-                    onClick={toggleTableVisibility}
-                >
-                    {isTableVisible ? 'Show Table' : 'Hide Table'}
-                </button>
-            </h1>
+        ((isLoggedIn || isLoggedIn_session) && (rank === 'Assesser' || rank_session === 'Assesser') || (rank === 'CEO' || rank_session === 'CEO')) ? (
+            <div>
+                <h1 className={'text-3xl my-2 '}>Schedule production</h1>
+                <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
+                <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click here&nbsp;&nbsp;
+                    <button
+                        className={'underline text-2xl text-lg'}
+                        onClick={toggleTableVisibility}
+                    >
+                        {isTableVisible ? 'Show Table' : 'Hide Table'}
+                    </button>
+                </h1>
 
-            {!isTableVisible && (
+                {!isTableVisible && (
+                    <div className="flex justify-center items-center my-10">
+                        <div className={'align-middle'}>
+                            <table className="table-auto mx-auto">
+                                <thead>
+                                <tr>
+                                    {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
+                                    <th className="px-4 py-2">Raw Material for</th>
+                                    <th className="px-4 py-2">Quantity</th>
+                                    <th className="px-4 py-2">Order Date</th>
+                                    {/*<th className="px-4 py-2">Status</th>*/}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {rawmaterialOrder.length > 0 ? (
+                                    rawmaterialOrder.map(report => (
+                                        <tr key={report.id}>
+                                            {report.track.match('Ready') ? (
+                                                <>
+                                                    {/*<td className="border px-4 py-2">{report.rawmaterial_name}</td>*/}
+                                                    <td className="border px-4 py-2">{report.rawmaterial_for}</td>
+                                                    <td className="border px-4 py-2">{report.quantity}</td>
+                                                    <td className="border px-4 py-2">
+                                                        {(() => {
+                                                            let time = new Date(report.ordertime);
+                                                            let dateFormatOptions = {
+                                                                month: 'long',
+                                                                day: 'numeric',
+                                                                year: 'numeric'
+                                                            };
+                                                            let timeFormatOptions = {
+                                                                hour: 'numeric',
+                                                                minute: 'numeric',
+                                                                hour12: true
+                                                            };
+                                                            let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                            let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                            return `${formattedDate} ${formattedTime}`;
+                                                        })()}
+                                                    </td>
+                                                    {/*<td className="border px-4 py-2">{report.track}</td>*/}
+                                                </>
+                                            ) : null}
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                    </tr>
+                                )}
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                )}
+
+                <h1 className={'text-3xl my-2 '}>Scheduled for production</h1>
                 <div className="flex justify-center items-center my-10">
                     <div className={'align-middle'}>
                         <table className="table-auto mx-auto">
                             <thead>
                             <tr>
                                 {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
-                                <th className="px-4 py-2">Raw Material for</th>
-                                <th className="px-4 py-2">Quantity</th>
-                                <th className="px-4 py-2">Order Date</th>
-                                {/*<th className="px-4 py-2">Status</th>*/}
+                                <th className="px-4 py-2">Chemical name</th>
+                                <th className="px-4 py-2">Quantity Produced expected</th>
+                                <th className="px-4 py-2">Quantity of raw materials</th>
+                                <th className="px-4 py-2">Production Date</th>
+                                <th className="px-4 py-2">Status</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {rawmaterialOrder.length > 0 ? (
-                                rawmaterialOrder.map(report => (
+                            {chemicalsList.length > 0 ? (
+                                chemicalsList.map(report => (
                                     <tr key={report.id}>
-                                        {report.track.match('Ready') ? (
-                                            <>
-                                                {/*<td className="border px-4 py-2">{report.rawmaterial_name}</td>*/}
-                                                <td className="border px-4 py-2">{report.rawmaterial_for}</td>
-                                                <td className="border px-4 py-2">{report.quantity}</td>
-                                                <td className="border px-4 py-2">
-                                                    {(() => {
-                                                        let time = new Date(report.ordertime);
-                                                        let dateFormatOptions = {
-                                                            month: 'long',
-                                                            day: 'numeric',
-                                                            year: 'numeric'
-                                                        };
-                                                        let timeFormatOptions = {
-                                                            hour: 'numeric',
-                                                            minute: 'numeric',
-                                                            hour12: true
-                                                        };
-                                                        let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                                        let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                                        return `${formattedDate} ${formattedTime}`;
-                                                    })()}
-                                                </td>
-                                                {/*<td className="border px-4 py-2">{report.track}</td>*/}
-                                            </>
-                                        ) : null}
+                                        <td className="border px-4 py-2">{report.name}</td>
+                                        <td className="border px-4 py-2">{report.chemquantity} {report.quantity_type}</td>
+                                        <td className="border px-4 py-2">{report.quantity} {report.quantity_type}</td>
+                                        <td className="border px-4 py-2">
+                                            {(() => {
+                                                let time = new Date(report.production_date);
+                                                let dateFormatOptions = {
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    year: 'numeric'
+                                                };
+                                                let timeFormatOptions = {
+                                                    hour: 'numeric',
+                                                    minute: 'numeric',
+                                                    hour12: true
+                                                };
+                                                let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                return `${formattedDate} ${formattedTime}`;
+                                            })()}
+                                        </td>
+                                        <td className="border px-4 py-2">{report.assess}</td>
                                     </tr>
                                 ))
                             ) : (
@@ -263,120 +321,67 @@ const ScheduleProduction = () => {
                         </table>
                     </div>
                 </div>
-            )}
 
-            <h1 className={'text-3xl my-2 '}>Scheduled for production</h1>
-            <div className="flex justify-center items-center my-10">
-                <div className={'align-middle'}>
-                    <table className="table-auto mx-auto">
-                        <thead>
-                        <tr>
-                            {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
-                            <th className="px-4 py-2">Chemical name</th>
-                            <th className="px-4 py-2">Quantity Produced expected</th>
-                            <th className="px-4 py-2">Quantity of raw materials</th>
-                            <th className="px-4 py-2">Production Date</th>
-                            <th className="px-4 py-2">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {chemicalsList.length > 0 ? (
-                            chemicalsList.map(report => (
-                                <tr key={report.id}>
-                                    <td className="border px-4 py-2">{report.name}</td>
-                                    <td className="border px-4 py-2">{report.chemquantity} {report.quantity_type}</td>
-                                    <td className="border px-4 py-2">{report.quantity} {report.quantity_type}</td>
-                                    <td className="border px-4 py-2">
-                                        {(() => {
-                                            let time = new Date(report.production_date);
-                                            let dateFormatOptions = {
-                                                month: 'long',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            };
-                                            let timeFormatOptions = {
-                                                hour: 'numeric',
-                                                minute: 'numeric',
-                                                hour12: true
-                                            };
-                                            let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                            let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                            return `${formattedDate} ${formattedTime}`;
-                                        })()}
-                                    </td>
-                                    <td className="border px-4 py-2">{report.assess}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
-                            </tr>
-                        )}
-
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-
-            <button
-                className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}
-                onClick={openModal}>Start Production
-            </button>
-            <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order and track</h2>
-                <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/></button>
-                {/*<div>I am a modal</div>*/}
-                <form className={'my-5'} onSubmit={handleSchedule}>
-                    <div className="my-2">
-                        <label>Raw Materials for:</label>
-                        <select value={selectedMaterial} onChange={(e) => {
-                            setSelectedMaterial(e.target.value);
-                            handleMaterialChange(e.target.value);
-                        }}>
-                            <option value="">Select Material</option>
-                            {existingrawmaterials.map(raw => (
-                                <option key={raw.id} value={raw.rawmaterial_for}>{raw.rawmaterial_for}</option>
-                            ))}
-                        </select>
+                <button
+                    className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}
+                    onClick={openModal}>Start Production
+                </button>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onAfterOpen={afterOpenModal}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order and track</h2>
+                    <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/></button>
+                    {/*<div>I am a modal</div>*/}
+                    <form className={'my-5'} onSubmit={handleSchedule}>
+                        <div className="my-2">
+                            <label>Raw Materials for:</label>
+                            <select value={selectedMaterial} onChange={(e) => {
+                                setSelectedMaterial(e.target.value);
+                                handleMaterialChange(e.target.value);
+                            }}>
+                                <option value="">Select Material</option>
+                                {existingrawmaterials.map(raw => (
+                                    <option key={raw.id} value={raw.rawmaterial_for}>{raw.rawmaterial_for}</option>
+                                ))}
+                            </select>
+                            {selectedMaterial && (
+                                <>
+                                    <input
+                                        type="number"
+                                        value={idd}
+                                        name="id"
+                                        readOnly
+                                        className="hidden"
+                                    />
+                                    <input
+                                        type="number"
+                                        value={quantity}
+                                        name="quantity"
+                                        readOnly
+                                        className="hidden"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={name}
+                                        name="name"
+                                        readOnly
+                                        className="hidden"
+                                    />
+                                </>
+                            )}
+                        </div>
                         {selectedMaterial && (
-                            <>
-                                <input
-                                    type="number"
-                                    value={idd}
-                                    name="id"
-                                    readOnly
-                                    className="hidden"
-                                />
-                                <input
-                                    type="number"
-                                    value={quantity}
-                                    name="quantity"
-                                    readOnly
-                                    className="hidden"
-                                />
-                                <input
-                                    type="text"
-                                    value={name}
-                                    name="name"
-                                    readOnly
-                                    className="hidden"
-                                />
-                            </>
+                            <button className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
+                                    type="submit">Submit</button>
                         )}
-                    </div>
-                    {selectedMaterial && (
-                        <button className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'} type="submit">Submit</button>
-                    )}
-                </form>
-            </Modal>
-        </div>
+                    </form>
+                </Modal>
+            </div>
+        ) : (<Dashboard/>)
     );
 };
 

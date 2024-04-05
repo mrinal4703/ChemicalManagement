@@ -134,13 +134,8 @@ const WelcomePage = () => {
 
             <footer className="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-                    <div className="sm:flex sm:items-center sm:justify-between">
-                        <Link to="/RawMaterialProvider" onClick={handleItemClick}>
-                            <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Signup
-                            </button>
-                        </Link>
-                        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                    <div className="sm:flex">
+                        <ul className="grid grid-rows-4 items-start mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                             <li>
                                 <a href="" className="hover:underline me-4 md:me-6">About</a>
                             </li>
@@ -151,8 +146,30 @@ const WelcomePage = () => {
                                 <a href="" className="hover:underline me-4 md:me-6">Licensing</a>
                             </li>
                             <li>
-                                <a href="" className="hover:underline">Contact</a>
+                                <a href="" className="hover:underline me-4 md:me-6">Contact</a>
                             </li>
+                        </ul>
+                        <ul className="grid grid-rows-4 items-start mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                            <li>
+                                <Link to="/RawMaterialProvider" onClick={handleItemClick}>
+                                    <button
+                                        className="hover:underline me-4 md:me-6">Signup as Raw Material Provider
+                                    </button>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/CompanySignup" onClick={handleItemClick}>
+                                    <button
+                                        className="hover:underline me-4 md:me-6">Signup as Company to order Chemicals
+                                    </button>
+                                </Link>
+                            </li>
+                            {/*<li>*/}
+                            {/*    <a href="" className="hover:underline me-4 md:me-6">Licensing</a>*/}
+                            {/*</li>*/}
+                            {/*<li>*/}
+                            {/*    <a href="" className="hover:underline me-4 md:me-6">Contact</a>*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                     <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>

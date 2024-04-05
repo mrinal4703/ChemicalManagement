@@ -38,6 +38,11 @@ public class CompanyOrderListController {
         return companyOrderListRepository.getAllOrderStatus();
     }
 
+//    @GetMapping("/getdeliveryforcardsstatus1")
+//    public List<String> getDeliveryStatus(@RequestParam(required = false, defaultValue = "pending") String status) {
+//        return companyOrderListRepository.getAllOrderStatus(status);
+//    }
+
     @PutMapping("/updateDelivery/{companyEmail}")
     public ResponseEntity<?> updateCompanyOrderList(@PathVariable String companyEmail, @RequestBody CompanyOrderList updatedCompanyList) {
         try {
