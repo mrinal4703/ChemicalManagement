@@ -5,6 +5,7 @@ import axios from "axios";
 import {email, email_session, isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
 import {producedchemicals} from "../data";
 import Dashboard from "./Dashboard";
+import {TbInfoHexagon} from "react-icons/tb";
 
 const customStyles = {
     content: {
@@ -20,6 +21,22 @@ const customStyles = {
     },
 };
 
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Raw Material Tracking</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
+
 const TrackOrderRawMaterials = () => {
 
     // let subtitle;
@@ -28,6 +45,16 @@ const TrackOrderRawMaterials = () => {
     const [providername, setProvidername] = useState('');
     const [orderedemail, setOrderedemail] = useState('');
     const [quantity, setQuantity] = useState(0);
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
 
     function openModal() {
         setIsOpen(true);
@@ -113,6 +140,11 @@ const TrackOrderRawMaterials = () => {
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Inventory Manager' || rank_session === 'Inventory Manager') || (rank === 'CEO' || rank_session === 'CEO')) ? (
             <div>
+                <button onClick={toggleSidebar}
+                        className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                    <TbInfoHexagon className="text-3xl"/>
+                </button>
+                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
                 <h1 className={'text-3xl my-4'}>Order and track the raw materials</h1>
                 {/*<hr className={'align-middle my-4 mx-auto w-5/6'}></hr>*/}
                 <div className="flex justify-center items-center my-4 rounded-lg shadow-md mx-3 bg-white">
@@ -237,7 +269,8 @@ const TrackOrderRawMaterials = () => {
                     <form className={'my-5'} onSubmit={handleSubmit}>
                         <div className={'my-2'}>
                             <label className="block">Raw Materials provider's email:</label>
-                            <select value={providername} className={'w-full'} onChange={(e) => setProvidername(e.target.value)}>
+                            <select value={providername} className={'w-full'}
+                                    onChange={(e) => setProvidername(e.target.value)}>
                                 {rawmaterialprovider.map(raw => (
                                     <option key={raw.id} value={raw.provideremail}>{raw.providerComp}</option>
                                 ))}

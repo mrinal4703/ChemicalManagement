@@ -8,7 +8,23 @@ import {assess} from "../Assets/images";
 import {CiDeliveryTruck} from "react-icons/ci";
 import Dashboard from "./Dashboard";
 import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
+import {TbInfoHexagon} from "react-icons/tb";
 
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Company Orders</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
 function ChemicalDeliveryCard({delivery, producedchemicals}) {
     const [chemicals, setChemicals] = useState([{name: '', quantity: ''}]);
     const [chemlist, setChemlist] = useState([]);
@@ -168,6 +184,16 @@ const CompanyOrders = () => {
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
+
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -309,6 +335,11 @@ const CompanyOrders = () => {
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Distributor' || rank_session === 'Distributor') || (rank === 'CEO' || rank_session === 'CEO')) ? (
             <div>
+                <button onClick={toggleSidebar}
+                        className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                    <TbInfoHexagon className="text-3xl"/>
+                </button>
+                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
                 <h1 className={'text-3xl my-4'}>Orders from companies</h1>
                 <div className={'flex justify-evenly bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
                     <h1 className={'text-2xl my-4'}>Calculator for quantity Converisons</h1>

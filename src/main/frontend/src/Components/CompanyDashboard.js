@@ -4,8 +4,23 @@ import {IoClose} from "react-icons/io5";
 import {biodata, producedchemicals} from "../data";
 import axios from "axios";
 import {email, email_session} from "../data/constants";
-import {TbPointFilled} from "react-icons/tb";
+import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
 
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Dashboard</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
 const Accordion = ({isOpen, children}) => {
     return (
         <div style={{display: isOpen ? 'block' : 'none'}}>
@@ -34,6 +49,15 @@ const CompanyDashboard = () => {
     const [accordionIsOpen, setAccordionIsOpen] = useState(false);
     const [chemicals, setChemicals] = useState([{name: '', quantity: ''}]);
 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
 
     function openModal() {
         setIsOpen(true);
@@ -150,6 +174,12 @@ const CompanyDashboard = () => {
 
     return (
         <div>
+            <button onClick={toggleSidebar}
+                    className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                <TbInfoHexagon className="text-3xl"/>
+            </button>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
+            <h1 className={'text-3xl my-2 '}>Order for Raw materials</h1>
             <div className={'bg-white mx-3 my-4 p-2 rounded-lg shadow-md'}>
                 <h1 className={'text-3xl my-4'}>Seemsan Company Welcomes you!</h1>
                 <h1 className={'text-lg'}>{biodata}</h1>
@@ -306,7 +336,8 @@ const CompanyDashboard = () => {
                         onClick={handleAdd}
                     >
                         Add more chemicals
-                    </button>&nbsp;&nbsp;&nbsp;
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
                     <button
                         className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
                         type="submit"

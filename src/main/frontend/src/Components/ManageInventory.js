@@ -9,6 +9,23 @@ import jsPDF from "jspdf";
 import {logo} from "../Assets/images";
 import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
 import Dashboard from "./Dashboard";
+import {TbInfoHexagon} from "react-icons/tb";
+
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Inventory Management</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
 
 const customStyles = {
     content: {
@@ -30,6 +47,16 @@ const ManageInventory = ({onToggleManageInventory}) => {
     const [quantity, setQuantity] = useState(0);
     const [expdate, setExpdate] = useState('');
     const [pH, setPh] = useState(0);
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
 
     function openModal() {
         setIsOpen(true);
@@ -172,6 +199,11 @@ const ManageInventory = ({onToggleManageInventory}) => {
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Inventory Manager' || rank_session === 'Inventory Manager') || (rank === 'CEO' || rank_session === 'CEO')) ? (
             <div>
+                <button onClick={toggleSidebar}
+                        className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                    <TbInfoHexagon className="text-3xl"/>
+                </button>
+                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
                 {/*<h1 className={'text-3xl my-2 '}>MANAGE INVENTORY</h1>*/}
                 <h1 className="text-4xl my-4 font-bold text-center text-gray-900">
                     <span className="text-yellow-600">MANAGE</span>{" "}
@@ -214,8 +246,11 @@ const ManageInventory = ({onToggleManageInventory}) => {
                                 <th className="px-4 py-2 border border-solid border-black font-bold">Expiry Date</th>
                                 <th className="px-4 py-2 border border-solid border-black font-bold">pH Level</th>
                                 <th className="px-4 py-2 border border-solid border-black font-bold">Quantity(present)</th>
-                                <th className="px-4 py-2 border border-solid border-black font-bold">Download Report</th>
-                                <th className="px-4 py-2 border border-solid border-black font-bold">Report for company</th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Download Report
+                                </th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Report for
+                                    company
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -372,7 +407,7 @@ const ManageInventory = ({onToggleManageInventory}) => {
                     </form>
                 </Modal>
             </div>
-        ):(<Dashboard/>)
+        ) : (<Dashboard/>)
     );
 };
 

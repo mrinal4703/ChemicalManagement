@@ -2,9 +2,34 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {email, email_session, isLoggedIn, isLoggedIn_session} from "../data/constants";
 import {biodata, producedchemicals, rawbio, rawbio1} from "../data";
-import {TbPointFilled} from "react-icons/tb";
+import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
+import {IoClose} from "react-icons/io5";
 
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Dashboard</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
 const RawMaterialProviderDashboard = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
     const [rawmaterialOrder, setRawmaterialOrder] = useState([]);
     // const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -25,6 +50,7 @@ const RawMaterialProviderDashboard = () => {
     const [rawmaterialprovider, setRawmaterialprovider] = useState([]);
 
     useEffect(() => {
+
         const fetchProviders = async () => {
             try {
                 let url = 'http://localhost:8085/rawmaterialproviderslist';
@@ -59,6 +85,11 @@ const RawMaterialProviderDashboard = () => {
 
     return (
         <div>
+            <button onClick={toggleSidebar}
+                    className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                <TbInfoHexagon className="text-3xl"/>
+            </button>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
             <h1 className={'text-3xl my-2 '}>Orders for Raw materials</h1>
             <div className={'bg-white mx-3 my-4 p-2 rounded-lg shadow-md'}>
                 <h1 className={'text-3xl my-4'}>Seemsan Company Welcomes you!</h1>

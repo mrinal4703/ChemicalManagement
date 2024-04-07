@@ -4,6 +4,23 @@ import {IoClose} from "react-icons/io5";
 import axios from "axios";
 import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
 import Dashboard from "./Dashboard";
+import {TbInfoHexagon} from "react-icons/tb";
+
+const Sidebar = ({ isOpen, onClose }) => {
+    return (
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className={'text-black w-full'}>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Schedule Production</h1>
+                </div>
+                <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
+            </div>
+            <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+
+            </div>
+        </div>
+    );
+};
 
 const customStyles = {
     content: {
@@ -26,6 +43,16 @@ const ScheduleProduction = () => {
     const [quantity, setQuantity] = useState(0);
     const [idd, setIdd] = useState(0);
     const [existingrawmaterials, setExisitingrawmaterials] = useState([]);
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
 
     const handleMaterialChange = (selectedMaterial) => {
         const selectedRawMaterial = existingrawmaterials.find(raw => raw.rawmaterial_for === selectedMaterial);
@@ -202,9 +229,15 @@ const ScheduleProduction = () => {
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Assesser' || rank_session === 'Assesser') || (rank === 'CEO' || rank_session === 'CEO')) ? (
             <div>
+                <button onClick={toggleSidebar}
+                        className={`absolute z-10 right-0 px-4 ${isSidebarOpen ? 'hidden' : 'block'}`}>
+                    <TbInfoHexagon className="text-3xl"/>
+                </button>
+                <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
                 <h1 className={'text-3xl my-4'}>Schedule production</h1>
                 <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-                    <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click here&nbsp;&nbsp;
+                    <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click
+                        here&nbsp;&nbsp;
                         <button
                             className={'underline text-xl'}
                             onClick={toggleTableVisibility}
