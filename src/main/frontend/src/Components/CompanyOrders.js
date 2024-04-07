@@ -76,21 +76,22 @@ function ChemicalDeliveryCard({delivery, producedchemicals}) {
 
 
     return (
-        <div className="card flex flex-col my-2 justify-between p-6 border-2 shadow-lg w-96 h-max">
+        <div className="card flex flex-col justify-between p-6 border-2 w-96 h-max bg-white rounded-lg shadow-md mx-3 my-4">
             <div className="card-body">
-                <h5 className="card-title">Delivery for {delivery[2]}</h5>
-                <p className="card-text">Deliveries to be made are {delivery[9]}</p>
+                <h5 className="card-title text-2xl my-1">Delivery for {delivery[2]}</h5>
+                <hr className={'my-1'}></hr>
+                <p className="card-text text-lg">Deliveries to be made are {delivery[9]}</p>
             </div>
             <div>
                 <form className={'my-5'} onSubmit={handleSubmit}>
-                    <div><h1>Deliver Chemicals</h1></div>
+                    <div><h1 className={'text-xl my-1'}>Deliver Chemicals</h1></div>
                     {chemicals.map((chemical, index) => (
                         <div key={index}>
-                            <label htmlFor={`chemical-${index}`}>Select Chemical:</label>
+                            <label className={'block'} htmlFor={`chemical-${index}`}>Select Chemical:</label>
                             <select
                                 id={`chemical-${index}`}
                                 name="name"
-                                className={'w-40'}
+                                className={'w-full'}
                                 required
                                 value={chemical.name}
                                 onChange={(event) => handleChange(index, event)}
@@ -101,11 +102,12 @@ function ChemicalDeliveryCard({delivery, producedchemicals}) {
                                             value={chem.name}>{chem.name} {chem.quantity}{chem.quantity_type}</option>
                                 ))}
                             </select>
-                            <label htmlFor={`quantity-${index}`}>Quantity:</label>
+                            <label className={'block'} htmlFor={`quantity-${index}`}>Quantity:</label>
                             <input
                                 id={`quantity-${index}`}
                                 type="number"
                                 name="quantity"
+                                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                                 required
                                 value={chemical.quantity}
                                 onChange={(event) => handleChange(index, event)}
@@ -118,7 +120,7 @@ function ChemicalDeliveryCard({delivery, producedchemicals}) {
                         onClick={handleAdd}
                     >
                         Add more chemicals
-                    </button>
+                    </button>&nbsp;&nbsp;&nbsp;
                     <button
                         className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
                         type="submit"
@@ -151,12 +153,15 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        borderWidth: '2px',
+        borderColor: 'black',
+        borderRadius: '16px',
     },
 };
 
 const CompanyOrders = () => {
     const [accordionIsOpen, setAccordionIsOpen] = useState(false);
-    let subtitle;
+    // let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [chem, setChem] = useState('');
     const [calculatedValue, setCalculatedValue] = useState(null);
@@ -173,7 +178,7 @@ const CompanyOrders = () => {
     }
 
     function afterOpenModal() {
-        subtitle.style.color = '#f00';
+        // subtitle.style.color = '#f00';
     }
 
     function closeModal() {
@@ -303,42 +308,51 @@ const CompanyOrders = () => {
 
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Distributor' || rank_session === 'Distributor') || (rank === 'CEO' || rank_session === 'CEO')) ? (
-            <div className={'mb-10'}>
-
-                <button onClick={() => setAccordionIsOpen(!accordionIsOpen)}>Calculate Amount</button>
-                <Accordion isOpen={accordionIsOpen}>
+            <div>
+                <h1 className={'text-3xl my-4'}>Orders from companies</h1>
+                <div className={'flex justify-evenly bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+                    <h1 className={'text-2xl my-4'}>Calculator for quantity Converisons</h1>
                     <div>
-                        <h2>Select chemical name</h2>
-                        <select value={chem} onChange={(e) => setChem(e.target.value)}>
-                            {producedchemicals.map(raw => (
-                                <option key={raw.id} value={raw.name}>{raw.name}</option>
-                            ))}
-                        </select>
-                        <input
-                            type="number"
-                            placeholder="Enter amount of your wish in Ltrs or Kgs"
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                        />
-                        <button onClick={handleCalculate}>Calculate</button>
-                        {calculatedValue !== null && (
-                            <>
-                                {/*<p>Density: {calculateDensity(chem)} Kg/Ltrs</p>*/}
-                                {
-                                    (inputValue === calculatedValue.toFixed(3) || inputValue === calculatedValue.toFixed(0)) ? (
-                                        <p>Order amount: {calculatedValue.toFixed(2)} Kgs</p>
-                                    ) : (
-                                        <p>Order amount: {calculatedValue.toFixed(3)} Ltrs</p>
-                                    )
-                                }
+                        <button className={'bg-blue-600 p-3 my-1 rounded-lg text-white'}
+                                onClick={() => setAccordionIsOpen(!accordionIsOpen)}>Calculate Amount
+                        </button>
+                        <Accordion isOpen={accordionIsOpen}>
+                            <div>
+                                <h2 className={'text-lg my-4'}>Select chemical name</h2>
+                                <select className={'h-12'} value={chem} onChange={(e) => setChem(e.target.value)}
+                                        required>
+                                    {producedchemicals.map(raw => (
+                                        <option key={raw.id} value={raw.name}>{raw.name}</option>
+                                    ))}
+                                </select>&nbsp;&nbsp;&nbsp;
+                                <input
+                                    type="number"
+                                    placeholder="Enter amount of your wish in Ltrs or Kgs"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    className="w-96 px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                                    required
+                                />&nbsp;&nbsp;&nbsp;
+                                <button className={'bg-blue-500 p-3 my-1 rounded-lg text-white'}
+                                        onClick={handleCalculate}>Calculate
+                                </button>
+                                {calculatedValue !== null && (
+                                    <>
+                                        {inputValue === calculatedValue.toFixed(3) || inputValue === calculatedValue.toFixed(0) ? (
+                                            <p className="text-lg">Order amount: {calculatedValue.toFixed(2)} Kgs</p>
+                                        ) : (
+                                            <p className="text-lg">Order amount: {calculatedValue.toFixed(3)} Ltrs</p>
+                                        )}
+                                    </>
+                                )}
 
-                            </>
-                        )}
+                            </div>
+                        </Accordion>
                     </div>
-                </Accordion>
+                </div>
 
-                <button
-                    className="flex fixed right-3 top-20 items-center justify-center bg-blue-500 text-white rounded-full w-12 h-12"
+                <x
+                    className="flex absolute left-3 top-20 items-center justify-center bg-blue-500 text-white rounded-full w-12 h-12"
                     onClick={toggleModal}>
                     <CiDeliveryTruck size={32}/>
                     {orderstackcount &&
@@ -346,46 +360,66 @@ const CompanyOrders = () => {
                             className="absolute top-2 right-3 transform translate-x-1/2 -translate-y-1/2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center">
                             {orderstackcount}
                         </div>}
-                </button>
+                </x>
 
                 {isModalOpen && (
                     <div
                         className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-                        <div className="bg-white p-4 rounded-lg">
-                            <h1 className={'text-2xl'}>Delivery details</h1>
+                        <div className="bg-[#ededed] p-4 rounded-lg relative">
+                            <button className="absolute top-2 right-2 text-gray-600" onClick={toggleModal}>
+                                <IoClose className="h-6 w-6"/>
+                            </button>
+                            <h1 className="text-2xl">Delivery details</h1>
                             {ordersstack.length > 0 ? (
-                                <div className="flex justify-center items-center my-10 mx-4">
+                                <div
+                                    className="w-fit justify-center items-center mx-auto my-4 bg-white rounded-lg shadow-md p-3">
                                     <div className={'align-middle'}>
                                         <table className="table-auto mx-auto">
-                                            <thead>
+                                            <thead className="bg-gray-200">
                                             <tr>
-                                                <th className="px-4 py-2">Company Name</th>
-                                                <th className="px-4 py-2">Company Address</th>
-                                                <th className="px-4 py-2">Company Email</th>
-                                                <th className="px-4 py-2">Company Phone number</th>
-                                                <th className="px-4 py-2">Company Type</th>
-                                                <th className="px-4 py-2">Order List</th>
-                                                <th className="px-4 py-2">Date of order</th>
-                                                <th className="px-4 py-2">Status of order</th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Company
+                                                    Name
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Company
+                                                    Address
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Company
+                                                    Email
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Company
+                                                    Phone number
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Company
+                                                    Type
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Order
+                                                    List
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Date
+                                                    of order
+                                                </th>
+                                                <th className="px-4 py-2 border border-solid border-black font-bold">Status
+                                                    of order
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {ordersstack.map((order, index) => (
-                                                <tr key={index}>
-                                                    <td className="border px-4 py-2">{order[1]}</td>
-                                                    <td className="border px-4 py-2">{order[4]}</td>
-                                                    <td className="border px-4 py-2">{order[8]}</td>
-                                                    <td className="border px-4 py-2">{order[5]}</td>
-                                                    <td className="border px-4 py-2">{order[2]}</td>
-                                                    <td className="border px-4 py-2">{order[11]}</td>
-                                                    <td className="border px-4 py-2">
+                                                <tr key={index} className="border border-solid border-black">
+                                                    <td className="border border-solid border-black px-4 py-2">{order[1]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[4]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[8]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[5]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[2]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[11]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">
                                                         {(() => {
                                                             const orderDateTime = new Date(order[10]);
                                                             const formattedDateTime = `${orderDateTime.getFullYear()}-${(orderDateTime.getMonth() + 1).toString().padStart(2, '0')}-${orderDateTime.getDate().toString().padStart(2, '0')} ${orderDateTime.getHours().toString().padStart(2, '0')}:${orderDateTime.getMinutes().toString().padStart(2, '0')}`;
                                                             return formattedDateTime;
                                                         })()}
                                                     </td>
-                                                    <td className="border px-4 py-2">{order[12]}</td>
+                                                    <td className="border border-solid border-black px-4 py-2">{order[12]}</td>
                                                 </tr>
                                             ))}
                                             </tbody>
@@ -397,9 +431,6 @@ const CompanyOrders = () => {
                                     <div className="border px-4 py-2">No matching data available currently!</div>
                                 </div>
                             )}
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4"
-                                    onClick={toggleModal}>Close
-                            </button>
                         </div>
                     </div>
                 )}
@@ -422,12 +453,13 @@ const CompanyOrders = () => {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>A new report</h2>
+                    <h2 className="text-2xl mb-4">A new delivery</h2>
                     <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/></button>
                     {/*<div>I am a modal</div>*/}
+                    <h2 className="text-lg mb-4">Select email for delivery</h2>
                     <form className={'my-5'} onSubmit={handleSubmit}>
                         {orderStack1.length > 0 ? (
-                            <select value={maill} onChange={(e) => setMaill(e.target.value)}>
+                            <select className={'w-full'} value={maill} onChange={(e) => setMaill(e.target.value)}>
                                 <option value="">Select</option>
                                 {maill === "" && (
                                     orderStack1.map(order => (
@@ -443,7 +475,8 @@ const CompanyOrders = () => {
                         <button className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'} type="submit">Submit</button>
                     </form>
                 </Modal>
-                <div className={'flex flex-row gap-3 justify-center'}>
+                <h1 className={'text-2xl my-4'}>Live orders (yet to deliver)</h1>
+                <div className={'flex mb-24 flex-row gap-3 justify-center'}>
                     {deliveryStack.length > 0 && deliveryStack
                         .map((delivery, index) => (
                             delivery[10] === "pending" ? (

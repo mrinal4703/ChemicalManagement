@@ -30,23 +30,27 @@ const NavBar = () => {
     console.log(localStorageRank);
     console.log(sessionStorageRank, "Hello");
     const handleLogout = () => {
-        localStorage.removeItem('isLoggedIn');
-        sessionStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('loggedinuseremail');
-        sessionStorage.removeItem('loggedinuseremail');
-        navigate('/');
-        window.location.reload();
-        rank1="";
-        window.location.reload();
+        const confirmLogout = window.confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+            localStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loggedinuseremail');
+            sessionStorage.removeItem('loggedinuseremail');
+            navigate('/');
+            window.location.reload();
+            rank1 = "";
+            rank2 = "";
+        }
     };
+
     return (
-        <div>
+        <div className={'bg-white shadow-md'}>
             {/*{rank1 && localStorage.getItem('loggedinuserrank').match(rank1) || rank1 && sessionStorage.getItem('loggedinuserrank').match(rank1) ?*/}
                 <div className={'navbar-container'}>
                     <div className={'flex items-center justify-between mx-3'}>
                         <Link to="/" onClick={handleMenuItemClick}><img className={'w-40'} src={logo}/></Link>
                         {/*<HiOutlineMenuAlt3 className="text-3xl" onClick={handleToggle}/>*/}
-                        <ul className="flex items-center">
+                        <ul className="flex items-center text-lg">
                             {isLoggedIn || isLoggedIn_session ? (
                                 <div className={'flex'}>
                                     <li className="menuItem mx-2">
@@ -58,7 +62,7 @@ const NavBar = () => {
                                             <Link to="/Dashboard" onClick={handleMenuItemClick}>Dashboard</Link>
                                         )}
                                     </li>
-
+                                    <p className={'font-thin'}>&nbsp;|&nbsp;</p>
                                     <li className="menuItem mx-2" onClick={handleMenuItemClick}>
                                         <Link to="/" onClick={handleLogout}>Logout</Link>
                                     </li>
@@ -66,10 +70,11 @@ const NavBar = () => {
                             ) : (
                                 <div className={'flex'}>
                                     <li className="menuItem mx-2">
-                                        <Link to="/SignUp" onClick={handleMenuItemClick}>Dashboard</Link>
+                                        <Link to="/SignIn" onClick={handleMenuItemClick}>Dashboard</Link>
                                     </li>
+                                    <p className={'font-thin'}>&nbsp;|&nbsp;</p>
                                     <li className="menuItem mx-2" onClick={handleMenuItemClick}>
-                                        <Link to="/SignUp" onClick={handleMenuItemClick}>Sign Up/Login</Link>
+                                        <Link to="/SignIn" onClick={handleMenuItemClick}>Sign Up/Login</Link>
                                     </li>
                                 </div>
                             )}
@@ -94,10 +99,10 @@ const NavBar = () => {
             {/*                ) : (*/}
             {/*                    <div className={'flex'}>*/}
             {/*                        <li className="menuItem mx-2">*/}
-            {/*                            <Link to="/SignUp" onClick={handleMenuItemClick}>Dashboard</Link>*/}
+            {/*                            <Link to="/SignIn" onClick={handleMenuItemClick}>Dashboard</Link>*/}
             {/*                        </li>*/}
             {/*                        <li className="menuItem mx-2" onClick={handleMenuItemClick}>*/}
-            {/*                            <Link to="/SignUp" onClick={handleMenuItemClick}>Sign Up/Login</Link>*/}
+            {/*                            <Link to="/SignIn" onClick={handleMenuItemClick}>Sign Up/Login</Link>*/}
             {/*                        </li>*/}
             {/*                    </div>*/}
             {/*                )}*/}

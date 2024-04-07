@@ -7,4 +7,6 @@ import logo from './LOGO2.png'
 import bubbles from './bubbles.png'
 import supply from './supply.jpeg'
 import ship from './ship.png'
-export {inventory,trackraw,shedule,assess,orders,logo,bubbles,supply,ship}
+import chemord from './chemord.png'
+import rawmat from './rawmat.png'
+export {inventory,trackraw,shedule,assess,orders,logo,bubbles,supply,ship,chemord,rawmat}

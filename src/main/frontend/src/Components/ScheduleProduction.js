@@ -13,11 +13,14 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        borderWidth: '2px',
+        borderColor: 'black',
+        borderRadius: '16px',
     },
 };
 
 const ScheduleProduction = () => {
-    let subtitle;
+    // let subtitle;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState(0);
@@ -124,7 +127,7 @@ const ScheduleProduction = () => {
     }
 
     function afterOpenModal() {
-        subtitle.style.color = '#f00';
+        // subtitle.style.color = '#f00';
     }
 
     const [rawmaterialprovider, setRawmaterialprovider] = useState([]);
@@ -199,97 +202,109 @@ const ScheduleProduction = () => {
     return (
         ((isLoggedIn || isLoggedIn_session) && (rank === 'Assesser' || rank_session === 'Assesser') || (rank === 'CEO' || rank_session === 'CEO')) ? (
             <div>
-                <h1 className={'text-3xl my-2 '}>Schedule production</h1>
-                <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
-                <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click here&nbsp;&nbsp;
-                    <button
-                        className={'underline text-2xl text-lg'}
-                        onClick={toggleTableVisibility}
-                    >
-                        {isTableVisible ? 'Show Table' : 'Hide Table'}
-                    </button>
-                </h1>
+                <h1 className={'text-3xl my-4'}>Schedule production</h1>
+                <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
+                    <h1 className={'text-2xl my-2 '}>To see which chemicals are ready to be produced, click here&nbsp;&nbsp;
+                        <button
+                            className={'underline text-xl'}
+                            onClick={toggleTableVisibility}
+                        >
+                            {isTableVisible ? 'Show Table' : 'Hide Table'}
+                        </button>
+                    </h1>
 
-                {!isTableVisible && (
-                    <div className="flex justify-center items-center my-10">
-                        <div className={'align-middle'}>
-                            <table className="table-auto mx-auto">
-                                <thead>
-                                <tr>
-                                    {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
-                                    <th className="px-4 py-2">Raw Material for</th>
-                                    <th className="px-4 py-2">Quantity</th>
-                                    <th className="px-4 py-2">Order Date</th>
-                                    {/*<th className="px-4 py-2">Status</th>*/}
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {rawmaterialOrder.length > 0 ? (
-                                    rawmaterialOrder.map(report => (
-                                        <tr key={report.id}>
-                                            {report.track.match('Ready') ? (
-                                                <>
-                                                    {/*<td className="border px-4 py-2">{report.rawmaterial_name}</td>*/}
-                                                    <td className="border px-4 py-2">{report.rawmaterial_for}</td>
-                                                    <td className="border px-4 py-2">{report.quantity}</td>
-                                                    <td className="border px-4 py-2">
-                                                        {(() => {
-                                                            let time = new Date(report.ordertime);
-                                                            let dateFormatOptions = {
-                                                                month: 'long',
-                                                                day: 'numeric',
-                                                                year: 'numeric'
-                                                            };
-                                                            let timeFormatOptions = {
-                                                                hour: 'numeric',
-                                                                minute: 'numeric',
-                                                                hour12: true
-                                                            };
-                                                            let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                                            let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                                            return `${formattedDate} ${formattedTime}`;
-                                                        })()}
-                                                    </td>
-                                                    {/*<td className="border px-4 py-2">{report.track}</td>*/}
-                                                </>
-                                            ) : null}
-                                        </tr>
-                                    ))
-                                ) : (
+                    {!isTableVisible && (
+                        <div className="flex justify-center items-center my-10">
+                            <div className={'align-middle'}>
+                                <table className="table-auto mx-auto">
+                                    <thead className="bg-gray-200">
                                     <tr>
-                                        <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                        {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
+                                        <th className="px-4 py-2 border border-solid border-black font-bold">Raw
+                                            Material for
+                                        </th>
+                                        <th className="px-4 py-2 border border-solid border-black font-bold">Quantity</th>
+                                        <th className="px-4 py-2 border border-solid border-black font-bold">Order
+                                            Date
+                                        </th>
+                                        {/*<th className="px-4 py-2">Status</th>*/}
                                     </tr>
-                                )}
+                                    </thead>
+                                    <tbody>
+                                    {rawmaterialOrder.length > 0 ? (
+                                        rawmaterialOrder.map(report => (
+                                            <tr key={report.id} className="border border-solid border-black">
+                                                {report.track.match('Ready') ? (
+                                                    <>
+                                                        {/*<td className="border px-4 py-2">{report.rawmaterial_name}</td>*/}
+                                                        <td className="border border-solid border-black px-4 py-2">{report.rawmaterial_for}</td>
+                                                        <td className="border border-solid border-black px-4 py-2">{report.quantity}</td>
+                                                        <td className="border border-solid border-black px-4 py-2">
+                                                            {(() => {
+                                                                let time = new Date(report.ordertime);
+                                                                let dateFormatOptions = {
+                                                                    month: 'long',
+                                                                    day: 'numeric',
+                                                                    year: 'numeric'
+                                                                };
+                                                                let timeFormatOptions = {
+                                                                    hour: 'numeric',
+                                                                    minute: 'numeric',
+                                                                    hour12: true
+                                                                };
+                                                                let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                                let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                                return `${formattedDate} ${formattedTime}`;
+                                                            })()}
+                                                        </td>
+                                                        {/*<td className="border px-4 py-2">{report.track}</td>*/}
+                                                    </>
+                                                ) : null}
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td className="border border-solid border-black px-4 py-2 font-bold">No Data
+                                                available currently!
+                                            </td>
+                                        </tr>
+                                    )}
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
 
-                <h1 className={'text-3xl my-2 '}>Scheduled for production</h1>
-                <div className="flex justify-center items-center my-10">
+                <div className="flex justify-center items-center bg-white rounded-lg shadow-md mx-3 p-2 mb-24 my-4">
+                    <h1 className={'text-2xl my-2 p-2'}>Scheduled for production</h1>
                     <div className={'align-middle'}>
                         <table className="table-auto mx-auto">
-                            <thead>
+                            <thead className="bg-gray-200">
                             <tr>
                                 {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
-                                <th className="px-4 py-2">Chemical name</th>
-                                <th className="px-4 py-2">Quantity Produced expected</th>
-                                <th className="px-4 py-2">Quantity of raw materials</th>
-                                <th className="px-4 py-2">Production Date</th>
-                                <th className="px-4 py-2">Status</th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Chemical name</th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Quantity Produced
+                                    expected
+                                </th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Quantity of raw
+                                    materials
+                                </th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Production Date
+                                </th>
+                                <th className="px-4 py-2 border border-solid border-black font-bold">Status</th>
                             </tr>
                             </thead>
                             <tbody>
                             {chemicalsList.length > 0 ? (
                                 chemicalsList.map(report => (
-                                    <tr key={report.id}>
-                                        <td className="border px-4 py-2">{report.name}</td>
-                                        <td className="border px-4 py-2">{report.chemquantity} {report.quantity_type}</td>
-                                        <td className="border px-4 py-2">{report.quantity} {report.quantity_type}</td>
-                                        <td className="border px-4 py-2">
+                                    <tr key={report.id} className="border border-solid border-black">
+                                        <td className="border border-solid border-black px-4 py-2">{report.name}</td>
+                                        <td className="border border-solid border-black px-4 py-2">{report.chemquantity} {report.quantity_type}</td>
+                                        <td className="border border-solid border-black px-4 py-2">{report.quantity} {report.quantity_type}</td>
+                                        <td className="border border-solid border-black px-4 py-2">
                                             {(() => {
                                                 let time = new Date(report.production_date);
                                                 let dateFormatOptions = {
@@ -307,12 +322,14 @@ const ScheduleProduction = () => {
                                                 return `${formattedDate} ${formattedTime}`;
                                             })()}
                                         </td>
-                                        <td className="border px-4 py-2">{report.assess}</td>
+                                        <td className="border border-solid border-black px-4 py-2">{report.assess}</td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>
+                                    <td className="border border-solid border-black px-4 py-2 font-bold">No Data
+                                        available currently!
+                                    </td>
                                 </tr>
                             )}
 
@@ -333,13 +350,13 @@ const ScheduleProduction = () => {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order and track</h2>
+                    <h2 className="text-2xl mb-4">Send for assessment</h2>
                     <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/></button>
                     {/*<div>I am a modal</div>*/}
                     <form className={'my-5'} onSubmit={handleSchedule}>
                         <div className="my-2">
-                            <label>Raw Materials for:</label>
-                            <select value={selectedMaterial} onChange={(e) => {
+                            <label className="block">Raw Materials for:</label>
+                            <select className={'w-full'} value={selectedMaterial} onChange={(e) => {
                                 setSelectedMaterial(e.target.value);
                                 handleMaterialChange(e.target.value);
                             }}>

@@ -3,7 +3,7 @@ import './App.css';
 import CompanyOrders from "./Components/CompanyOrders";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import Signup from "./Components/Signup";
+import SignIn from "./Components/SignIn";
 import Dashboard from "./Components/Dashboard";
 import ManageInventory from "./Components/ManageInventory";
 import TrackOrderRawMaterials from "./Components/TrackOrderRawMaterials";
@@ -15,6 +15,8 @@ import WelcomePage from "./Components/WelcomePage";
 import CompanySignup from "./Components/CompanySignup";
 import CompanyDashboard from "./Components/CompanyDashboard";
 import Inventory from "./Components/Inventory";
+import SeemsanSignup from "./Components/SeemsanSignup";
+import Choosing from "./Components/Choosing";
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
           <div className={'route-transition'}>
             <Routes>
               <Route exact path="/" element={<WelcomePage/>}/>
-              <Route exact path="/Signup" element={<Signup/>}/>
+              <Route exact path="/Signin" element={<SignIn/>}/>
+              <Route exact path="/SignUpType" element={<Choosing/>}/>
+              <Route exact path="/098213@SeemsanSignup" element={<SeemsanSignup/>}/>
               <Route exact path="/Dashboard" element={<Dashboard/>}/>
               <Route exact path="/ManageInventory" element={<ManageInventory/>}/>
               <Route exact path="/Inventory" element={<Inventory/>}/>

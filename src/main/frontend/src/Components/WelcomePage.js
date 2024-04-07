@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { GiChemicalDrop } from "react-icons/gi";
+import React, {useState} from 'react';
+import {GiChemicalDrop} from "react-icons/gi";
 import Hexagon from 'react-hexagon';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {ship, supply} from "../Assets/images";
 
 const WelcomePage = () => {
@@ -10,10 +10,17 @@ const WelcomePage = () => {
         setToggle(true);
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleOpen = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <div>
-            <div className='w-screen h-[calc(100vh-5rem)]'>
-                <div className="bg-cover bg-center bg-no-repeat opacity-70 bg-opacity-40 h-full w-full bg-[url('/src/Assets/images/bubbles.png')]">
+            <div>
+                <div
+                    className="bg-cover my-4 py-2 bg-center bg-no-repeat rounded-lg opacity-70 bg-opacity-4 h-max mx-2 bg-[url('/src/Assets/images/bubbles.png')]">
                     {/*style={{backgroundImage: 'url(https://media.istockphoto.com/id/1500368452/photo/molecular-structure-lights-concept.webp?b=1&s=170667a&w=0&k=20&c=6nQ-GdsmMcpyAYzK6GdpUZWCNnbNf1s4lTae9rL9AlI=)'}}*/}
                     <div className="container mx-auto flex flex-col my-auto align-middle h-full">
                         <div className='my-auto mx-auto lg:mx-0 w-10/12 lg:w-2/5'>
@@ -21,7 +28,7 @@ const WelcomePage = () => {
                             <p className="text-2xl mb-8">Top-ranked international supplier & distributor of chemicals,
                                 solvents & intermediates worldwide</p>
                             <div className='flex items-center px-40'>
-                                <Link to="/Signup" onClick={handleItemClick}>
+                                <Link to="/SignUpType" onClick={handleItemClick}>
                                     <button
                                         className='rounded px-10 py-3 text-white bg-blue-500 hover:bg-blue-600'>Sign up
                                     </button>
@@ -31,19 +38,23 @@ const WelcomePage = () => {
                     </div>
                 </div>
             </div>
-            <div className="container mx-auto text-center my-8">
-                <h2 className="text-4xl font-bold pb-10 text-[#072b52]" >Chemical Solutions at Your Fingertips</h2>
-            </div>
-            <div className="flex items-center justify-center my-8">
-                <img src={supply}
-                     alt="Your Image" className="mr-4 w-[400px] h-[200px]" style={{width: '400px', height: '200px'}}/>
-                <div>
-                    <h2 className="text-4xl font-bold mb-4 text-[#406fa1]">Strengthen Your Supply Chain</h2>
-                    <p className="text-1xl">The largest international supplier & distributor of chemicals, composites, and plastics.</p>
+            <div className={'shadow-lg bg-white py-2 my-4 mx-3 rounded-lg'}>
+                <div className="container mx-auto text-center my-8">
+                    <h2 className="text-4xl font-bold pb-10 text-[#072b52]">Chemical Solutions at Your Fingertips</h2>
+                </div>
+                <div className="flex items-center justify-center my-8">
+                    <img src={supply}
+                         alt="Your Image" className="mr-4 w-[400px] h-[200px]"
+                         style={{width: '400px', height: '200px'}}/>
+                    <div>
+                        <h2 className="text-4xl font-bold mb-4 text-[#406fa1]">Strengthen Your Supply Chain</h2>
+                        <p className="text-1xl">The largest international supplier & distributor of chemicals,
+                            composites, and plastics.</p>
+                    </div>
                 </div>
             </div>
 
-            <div className="container mx-auto my-8 flex items-center">
+            <div className="container mx-auto my-4 flex items-center">
                 <img className="w-1/2"
                      src={ship}
                      alt="Image 1"/>
@@ -51,14 +62,14 @@ const WelcomePage = () => {
                      src="https://thechemco.com/wp-content/uploads/2023/07/AdobeStock_312877949_scaled-1-1024x682-1.png"
                      alt="Image 2"/>
             </div>
-            <div className="container mx-auto my-8 text-center">
+            <div className="py-2 pb-4 mx-3 rounded-lg my-4 text-center shadow-lg bg-white">
                 <h2 className="text-4xl font-bold mb-4">Our Products</h2>
                 <p className="text-lg mb-8">We partner with manufacturers both domestically and internationally to
                     provide cost-effective alternatives focusing on the needs of businesses of all sizes.</p>
 
                 <div className="flex justify-center flex-wrap">
                     <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
+                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
                     >
                         <GiChemicalDrop
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
@@ -67,7 +78,7 @@ const WelcomePage = () => {
                             1</p>
                     </div>
                     <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
+                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
                     >
                         <GiChemicalDrop
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
@@ -76,7 +87,7 @@ const WelcomePage = () => {
                             2</p>
                     </div>
                     <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
+                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
                     >
                         <GiChemicalDrop
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
@@ -85,7 +96,7 @@ const WelcomePage = () => {
                             3</p>
                     </div>
                     <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
+                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
                     >
                         <GiChemicalDrop
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
@@ -96,7 +107,7 @@ const WelcomePage = () => {
                 </div>
                 <div className="flex justify-center flex-wrap">
                     <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
+                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
                     >
                         <GiChemicalDrop
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
@@ -135,7 +146,7 @@ const WelcomePage = () => {
             <footer className="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div className="sm:flex">
-                        <ul className="grid grid-rows-4 items-start mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                        <ul className="grid grid-rows-4 items-start mb-6 text-md font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                             <li>
                                 <a href="" className="hover:underline me-4 md:me-6">About</a>
                             </li>
@@ -149,21 +160,40 @@ const WelcomePage = () => {
                                 <a href="" className="hover:underline me-4 md:me-6">Contact</a>
                             </li>
                         </ul>
-                        <ul className="grid grid-rows-4 items-start mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                        <ul className="grid grid-rows-4 items-start mb-6 text-md font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                             <li>
-                                <Link to="/RawMaterialProvider" onClick={handleItemClick}>
+                                <div className="relative">
                                     <button
-                                        className="hover:underline me-4 md:me-6">Signup as Raw Material Provider
+                                        className="hover:underline me-4 md:me-6"
+                                        onClick={toggleOpen}
+                                    >
+                                        Partner with us
                                     </button>
-                                </Link>
+                                    {isOpen && (
+                                        <div className="absolute left-0 top-full flex justify-between w-full">
+                                            <Link to="/CompanySignup" onClick={handleItemClick}>
+                                                <button className="hover:underline me-4 md:me-6"
+                                                        onClick={toggleOpen}>Company
+                                                </button>
+                                            </Link>
+                                            <Link to="/RawMaterialProvider" onClick={handleItemClick}>
+                                                <button className="hover:underline me-4 md:me-6"
+                                                        onClick={toggleOpen}>RawMaterialProvider
+                                                </button>
+                                            </Link>
+                                            <div
+                                                className="absolute left-1/2 top-0 transform -translate-x-1/2 h-4 border-l-2 border-blue-500"></div>
+                                        </div>
+                                    )}
+                                </div>
                             </li>
-                            <li>
-                                <Link to="/CompanySignup" onClick={handleItemClick}>
-                                    <button
-                                        className="hover:underline me-4 md:me-6">Signup as Company to order Chemicals
-                                    </button>
-                                </Link>
-                            </li>
+                            {/*<li>*/}
+                            {/*    <Link to="/CompanySignup" onClick={handleItemClick}>*/}
+                            {/*        <button*/}
+                            {/*            className="hover:underline me-4 md:me-6">Signup as Company to order Chemicals*/}
+                            {/*        </button>*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                             {/*<li>*/}
                             {/*    <a href="" className="hover:underline me-4 md:me-6">Licensing</a>*/}
                             {/*</li>*/}

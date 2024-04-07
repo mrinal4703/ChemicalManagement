@@ -39,32 +39,32 @@ const Inventory = () => {
 
             <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
             <div className={'flex flex-row gap-10 justify-evenly mt-10'}>
-                <button className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-black"
+                <button className="px-4 py-2 bg-gray-800 text-white  rounded-lg shadow-md hover:bg-black"
                         onClick={() => window.location.reload()}>
                     <h1 className="text-lg font-bold">All</h1>
                 </button>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
                         onClick={() => handleCategoryClick('Physical')}>
                     <h1 className="text-lg font-bold">Physical Hazardous</h1>
                 </button>
-                <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                <button className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600"
                         onClick={() => handleCategoryClick('Environmental')}>
                     <h1 className="text-lg font-bold">Environmental Hazardous</h1>
                 </button>
-                <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                <button className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600"
                         onClick={() => handleCategoryClick('Health')}>
                     <h1 className="text-lg font-bold">Health Hazardous</h1>
                 </button>
-                <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                <button className="px-4 py-2 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600"
                         onClick={() => handleCategoryClick('Least to none')}>
                     <h1 className="text-lg font-bold">Least to non Hazardous</h1>
                 </button>
 
             </div>
-            <div className="flex justify-center items-center my-10">
+            <div className="w-fit justify-center items-center mx-auto my-10 bg-white rounded-lg shadow-md p-3">
                 <div className={'align-middle'}>
                     <table className="table-auto mx-auto">
-                    <thead className="bg-gray-200">
+                        <thead className="bg-gray-200">
                         <tr>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Name</th>
                             <th className="px-4 py-2 border border-solid border-black font-bold">Hazard type</th>

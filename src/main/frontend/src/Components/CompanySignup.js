@@ -35,6 +35,16 @@ const Login = ({ onToggleSignUp }) => {
             window.location.reload();
         } catch (error) {
             console.error('Error logging in:', error);
+            if (error.response && error.response.status === 401) {
+                if (window.confirm('Wrong email or password. Please try again.')) {
+                    setEmail('');
+                    setPassword('');
+                }
+            } else {
+                alert('An unexpected error occurred. Please try again later.');
+                setEmail('');
+                setPassword('');
+            }
         }
     };
 
@@ -64,7 +74,7 @@ const Login = ({ onToggleSignUp }) => {
         //     </form>
         //     <p>New here? <button onClick={onToggleSignUp}>Sign up here</button></p>
         // </div>
-        <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg">
+        <div className="max-w-md mx-auto bg-white my-4 p-4 border rounded-lg shadow-lg">
             <h2 className="text-2xl mb-4">Login</h2>
             <form onSubmit={handleLogin} className="space-y-4">
                 <div>
@@ -193,7 +203,7 @@ const SignUp = ({onToggleLoginPage}) => {
         //     </form>
         //     <p>Already have an account? <button onClick={onToggleLoginPage}>Login here</button></p>
         // </div>
-        <div className="max-w-md mx-auto p-4 mb-4 border rounded-lg shadow-lg">
+        <div className="max-w-lg mx-auto p-4 bg-white my-4 mb-4 border rounded-lg shadow-lg">
             <h2 className="text-2xl mb-4">Sign Up</h2>
             <form onSubmit={handleSignUp} className="space-y-4">
                 <div>

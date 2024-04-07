@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Modal from "react-modal";
 import {IoClose} from "react-icons/io5";
-import {producedchemicals} from "../data";
+import {biodata, producedchemicals} from "../data";
 import axios from "axios";
 import {email, email_session} from "../data/constants";
+import {TbPointFilled} from "react-icons/tb";
 
 const Accordion = ({isOpen, children}) => {
     return (
@@ -21,11 +22,14 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        borderWidth: '2px',
+        borderColor: 'black',
+        borderRadius: '16px',
     },
 };
 
 const CompanyDashboard = () => {
-    let subtitle;
+    // let subtitle;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [accordionIsOpen, setAccordionIsOpen] = useState(false);
     const [chemicals, setChemicals] = useState([{name: '', quantity: ''}]);
@@ -36,7 +40,7 @@ const CompanyDashboard = () => {
     }
 
     function afterOpenModal() {
-        subtitle.style.color = '#f00';
+        // subtitle.style.color = '#f00';
     }
 
     function closeModal() {
@@ -146,13 +150,17 @@ const CompanyDashboard = () => {
 
     return (
         <div>
-            <div>
-                <h1>Company Description</h1>
-                <h2>These are the following chemicals that are provided by our company</h2>
-                <div className="grid grid-cols-5">
+            <div className={'bg-white mx-3 my-4 p-2 rounded-lg shadow-md'}>
+                <h1 className={'text-3xl my-4'}>Seemsan Company Welcomes you!</h1>
+                <h1 className={'text-lg'}>{biodata}</h1>
+                <h2 className={'text-lg'}>These are the following chemicals that are provided by our company:</h2>
+                <div className="flex flex-wrap my-3">
                     {producedchemicals && producedchemicals.map(raw => (
                         raw.id !== 1 && (
-                            <div key={raw.id}>{raw.name}</div>
+                            <div key={raw.id} className="w-1/4 flex items-center mb-2">
+                                <TbPointFilled className="text-black mr-2"/>
+                                <span>{raw.name}</span>
+                            </div>
                         )
                     ))}
                 </div>
@@ -160,82 +168,90 @@ const CompanyDashboard = () => {
                 <p>Dont worry, we have provided a calculator for you, that provide an estimate kg, for your preferred
                     litres of particular chemicals</p>
             </div>
-            {ordersstack.length > 0 && (
-                <div className="flex justify-center items-center my-10">
-                    <div className={'align-middle'}>
-                        <table className="table-auto mx-auto">
-                            <thead>
-                            <tr>
-                                <th className="px-4 py-2">Order List</th>
-                                <th className="px-4 py-2">Date of order</th>
-                                <th className="px-4 py-2">Status of order</th>
-                                <th className="px-4 py-2">Date Delivered on</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {ordersstack.map(order => (
-                                <tr key={order.id}>
-                                    {(email.match(order.company_email) || email_session.match(order.company_email)) && (
-                                        <>
-                                            <td className="border px-4 py-2">{order.order_list}</td>
-                                            <td className="border px-4 py-2">
-                                                {(() => {
-                                                    let time = new Date(order.order_date);
-                                                    let dateFormatOptions = {
-                                                        month: 'long',
-                                                        day: 'numeric',
-                                                        year: 'numeric'
-                                                    };
-                                                    let timeFormatOptions = {
-                                                        hour: 'numeric',
-                                                        minute: 'numeric',
-                                                        hour12: true
-                                                    };
-                                                    let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                                    let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                                    return `${formattedDate} ${formattedTime}`;
-                                                })()}
-                                            </td>
-                                            <td className="border px-4 py-2">{order.order_status}</td>
-                                            <td className="border px-4 py-2">
-                                                {order.delivered_date !== null ? (
-                                                    <>
-                                                        {(() => {
-                                                            let time = new Date(order.delivered_date);
-                                                            let dateFormatOptions = {
-                                                                month: 'long',
-                                                                day: 'numeric',
-                                                                year: 'numeric'
-                                                            };
-                                                            let timeFormatOptions = {
-                                                                hour: 'numeric',
-                                                                minute: 'numeric',
-                                                                hour12: true
-                                                            };
-                                                            let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
-                                                            let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
-                                                            return `${formattedDate} ${formattedTime}`;
-                                                        })()}
-                                                    </>
-                                                ) : (
-                                                    <p>Soon!</p>
-                                                )}
-
-                                            </td>
-                                        </>
-                                    )}
+            <div className={'bg-white mx-3 my-4 p-2 rounded-lg shadow-md mb-20'}>
+                <h1 className={'text-2xl my-4'}>Your orders</h1>
+                {ordersstack.length > 0 && (
+                    <div className="flex justify-center items-center my-4">
+                        <div className={'align-middle'}>
+                            <table className="table-auto mx-auto">
+                                <thead className="bg-gray-200">
+                                <tr>
+                                    <th className="px-4 py-2 border border-solid border-black font-bold">Order List</th>
+                                    <th className="px-4 py-2 border border-solid border-black font-bold">Date of order
+                                    </th>
+                                    <th className="px-4 py-2 border border-solid border-black font-bold">Status of
+                                        order
+                                    </th>
+                                    <th className="px-4 py-2 border border-solid border-black font-bold">Date Delivered
+                                        on
+                                    </th>
                                 </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {ordersstack.map(order => (
+                                    <tr key={order.id} className="border border-solid border-black">
+                                        {(email.match(order.company_email) || email_session.match(order.company_email)) && (
+                                            <>
+                                                <td className="border border-solid border-black px-4 py-2">{order.order_list}</td>
+                                                <td className="border border-solid border-black px-4 py-2">
+                                                    {(() => {
+                                                        let time = new Date(order.order_date);
+                                                        let dateFormatOptions = {
+                                                            month: 'long',
+                                                            day: 'numeric',
+                                                            year: 'numeric'
+                                                        };
+                                                        let timeFormatOptions = {
+                                                            hour: 'numeric',
+                                                            minute: 'numeric',
+                                                            hour12: true
+                                                        };
+                                                        let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                        let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                        return `${formattedDate} ${formattedTime}`;
+                                                    })()}
+                                                </td>
+                                                <td className="border border-solid border-black px-4 py-2">{order.order_status}</td>
+                                                <td className="border border-solid border-black px-4 py-2">
+                                                    {order.delivered_date !== null ? (
+                                                        <>
+                                                            {(() => {
+                                                                let time = new Date(order.delivered_date);
+                                                                let dateFormatOptions = {
+                                                                    month: 'long',
+                                                                    day: 'numeric',
+                                                                    year: 'numeric'
+                                                                };
+                                                                let timeFormatOptions = {
+                                                                    hour: 'numeric',
+                                                                    minute: 'numeric',
+                                                                    hour12: true
+                                                                };
+                                                                let formattedDate = time.toLocaleDateString(undefined, dateFormatOptions);
+                                                                let formattedTime = time.toLocaleTimeString(undefined, timeFormatOptions);
+                                                                return `${formattedDate} ${formattedTime}`;
+                                                            })()}
+                                                        </>
+                                                    ) : (
+                                                        <p>Soon!</p>
+                                                    )}
+
+                                                </td>
+                                            </>
+                                        )}
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            )}
-            {ordersstack.length === 0 && (
-                <div className="flex justify-center items-center my-10">
-                    <div className="border px-4 py-2">No matching data available currently!</div>
-                </div>
-            )}
+                )}
+                {ordersstack.length === 0 && (
+                    <div className="flex justify-center items-center my-10">
+                        <div className="border px-4 py-2">No matching data available currently!</div>
+                    </div>
+                )}
+            </div>
 
 
             <button
@@ -249,18 +265,20 @@ const CompanyDashboard = () => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order</h2>
+                <h2 className="text-2xl mb-4">Place order for chemicals</h2>
+                {/*<h2 ref={(_subtitle) => (subtitle = _subtitle)}>Order</h2>*/}
                 <button className={'absolute top-3 right-3 '} onClick={closeModal}><IoClose/>
                 </button>
                 <form className={'my-5'} onSubmit={handleSubmit}>
-                    <div><h1>Place order for chemicals</h1></div>
+                    {/*<div><h1>Place order for chemicals</h1></div>*/}
                     {chemicals.map((chemical, index) => (
-                        <div key={index}>
-                            <label htmlFor={`chemical-${index}`}>Select Chemical:</label>
+                        <div className={'flex'} key={index}>
+                            {/*<label className={'block'} htmlFor={`chemical-${index}`}>Select Chemical:</label>*/}
                             <select
                                 id={`chemical-${index}`}
                                 name="name"
                                 required
+                                className={'h-12'}
                                 value={chemical.name}
                                 onChange={(event) => handleChange(index, event)}
                             >
@@ -269,12 +287,13 @@ const CompanyDashboard = () => {
                                     chem.id !== 1 && (
                                         <option key={chem.id} value={chem.name}>{chem.name}</option>)
                                 ))}
-                            </select>
-                            <label htmlFor={`quantity-${index}`}>Quantity:</label>
+                            </select>&nbsp;&nbsp;&nbsp;
+                            {/*<label className={'block'} htmlFor={`quantity-${index}`}>Quantity:</label>*/}
                             <input
                                 id={`quantity-${index}`}
                                 type="number"
                                 name="quantity"
+                                className="w-96 px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                                 required
                                 value={chemical.quantity}
                                 onChange={(event) => handleChange(index, event)}
@@ -287,7 +306,7 @@ const CompanyDashboard = () => {
                         onClick={handleAdd}
                     >
                         Add more chemicals
-                    </button>
+                    </button>&nbsp;&nbsp;&nbsp;
                     <button
                         className={'p-2 bg-blue-600 mt-4 text-white rounded-lg'}
                         type="submit"
@@ -295,30 +314,44 @@ const CompanyDashboard = () => {
                         Submit
                     </button>
                 </form>
-                <button onClick={() => setAccordionIsOpen(!accordionIsOpen)}>Calculate Amount</button>
-                <Accordion isOpen={accordionIsOpen}>
-                    <div>
-                        <h2>Select chemical name</h2>
-                        <select value={chem} onChange={(e) => setChem(e.target.value)}>
-                            {producedchemicals.map(raw => (
-                                <option key={raw.id} value={raw.name}>{raw.name}</option>
-                            ))}
-                        </select>
-                        <input
-                            type="number"
-                            placeholder="Enter amount of your wish in Ltrs or Kgs"
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                        />
-                        <button onClick={handleCalculate}>Calculate</button>
-                        {calculatedValue !== null && (
-                            <>
-                                <p>Density: {calculateDensity(chem)} Kg/Ltrs</p>
-                                <p>Order amount: {calculatedValue.toFixed(3)} Kgs</p>
-                            </>
-                        )}
-                    </div>
-                </Accordion>
+                <h1 className={'text-lg my-4'}>Calculator for quantity Converisons</h1>
+                <div>
+                    <button className={'bg-blue-600 p-2 my-1 rounded-lg text-white'}
+                            onClick={() => setAccordionIsOpen(!accordionIsOpen)}>Calculate Amount
+                    </button>
+                    <Accordion isOpen={accordionIsOpen}>
+                        <div>
+                            <h2 className={'text-lg my-4'}>Select chemical name</h2>
+                            <select className={'h-12'} value={chem} onChange={(e) => setChem(e.target.value)}
+                                    required>
+                                {producedchemicals.map(raw => (
+                                    <option key={raw.id} value={raw.name}>{raw.name}</option>
+                                ))}
+                            </select>&nbsp;&nbsp;&nbsp;
+                            <input
+                                type="number"
+                                placeholder="Enter amount of your wish in Ltrs or Kgs"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                className="w-96 px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                                required
+                            />&nbsp;&nbsp;&nbsp;
+                            <button className={'bg-blue-500 p-3 my-1 rounded-lg text-white'}
+                                    onClick={handleCalculate}>Calculate
+                            </button>
+                            {calculatedValue !== null && (
+                                <>
+                                    {inputValue === calculatedValue.toFixed(3) || inputValue === calculatedValue.toFixed(0) ? (
+                                        <p className="text-lg">Order amount: {calculatedValue.toFixed(2)} Kgs</p>
+                                    ) : (
+                                        <p className="text-lg">Order amount: {calculatedValue.toFixed(3)} Ltrs</p>
+                                    )}
+                                </>
+                            )}
+
+                        </div>
+                    </Accordion>
+                </div>
             </Modal>
         </div>
     );

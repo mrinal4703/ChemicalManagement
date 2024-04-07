@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {email, email_session, isLoggedIn, isLoggedIn_session} from "../data/constants";
+import {biodata, producedchemicals, rawbio, rawbio1} from "../data";
+import {TbPointFilled} from "react-icons/tb";
 
 const RawMaterialProviderDashboard = () => {
     const [rawmaterialOrder, setRawmaterialOrder] = useState([]);
@@ -58,28 +60,33 @@ const RawMaterialProviderDashboard = () => {
     return (
         <div>
             <h1 className={'text-3xl my-2 '}>Orders for Raw materials</h1>
+            <div className={'bg-white mx-3 my-4 p-2 rounded-lg shadow-md'}>
+                <h1 className={'text-3xl my-4'}>Seemsan Company Welcomes you!</h1>
+                <h1 className={'text-lg my-1'}>{rawbio}</h1>
+                <h1 className={'text-lg my-1'}>{rawbio1}</h1>
+            </div>
             <hr className={'align-middle my-4 mx-auto w-5/6'}></hr>
-            <div className="flex justify-center items-center my-10">
+            <div className="w-fit justify-center items-center mx-auto my-4 bg-white rounded-lg shadow-md p-3">
                 <div className={'align-middle'}>
                     <table className="table-auto mx-auto">
-                        <thead>
+                        <thead className="bg-gray-200">
                         <tr>
                             {/*<th className="px-4 py-2">Raw Material's Name</th>*/}
-                            <th className="px-4 py-2">Raw Material for</th>
-                            <th className="px-4 py-2">Quantity</th>
-                            <th className="px-4 py-2">Order Date</th>
-                            <th className="px-4 py-2">Status</th>
-                            <th className="px-4 py-2">Ready?</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Raw Material for</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Quantity</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Order Date</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Status</th>
+                            <th className="px-4 py-2 border border-solid border-black font-bold">Ready?</th>
                         </tr>
                         </thead>
                         <tbody>
                         {rawmaterialOrder.map(report => (
-                            <tr key={report.id}>
+                            <tr key={report.id} className="border border-solid border-black">
                                 {email.match(report.providerComp) || email_session.match(report.providerComp) ? (
                                     <>
-                                        <td className="border px-4 py-2">{report.rawmaterial_for}</td>
-                                        <td className="border px-4 py-2">{report.quantity}</td>
-                                        <td className="border px-4 py-2">
+                                        <td className="border border-solid border-black px-4 py-2">{report.rawmaterial_for}</td>
+                                        <td className="border border-solid border-black px-4 py-2">{report.quantity}</td>
+                                        <td className="border border-solid border-black px-4 py-2">
                                             {(() => {
                                                 let time = new Date(report.ordertime);
                                                 let dateFormatOptions = {
@@ -97,7 +104,7 @@ const RawMaterialProviderDashboard = () => {
                                                 return `${formattedDate} ${formattedTime}`;
                                             })()}
                                         </td>
-                                        <td className="border px-4 py-2">{report.track}</td>
+                                        <td className="border border-solid border-black px-4 py-2">{report.track}</td>
                                         {(isLoggedIn && report.track.match('pending')) || (isLoggedIn_session && report.track.match('pending')) ? (
                                             <td>
                                                 <form
@@ -115,7 +122,8 @@ const RawMaterialProviderDashboard = () => {
                                                     </button>
                                                 </form>
                                             </td>
-                                        ) : <td className="border px-4 py-2">Is already ready</td>}
+                                        ) : <td className="border border-solid border-black px-4 py-2">Is already
+                                            ready</td>}
                                     </>
                                 ) : null
                                     //     (

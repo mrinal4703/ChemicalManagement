@@ -1,3 +1,4 @@
+import React from 'react';
 export const ranks = [
     {
         id:1,
@@ -169,7 +170,7 @@ export const producedchemicals = [
         name:'Nitrogen-based fertilizers (urea, ammonium nitrate)'
     },
     {
-        id:18,
+        id:19,
         name:'Phosphate fertilizers'
     },
     {
@@ -205,3 +206,63 @@ export const producedchemicals = [
         name:'Industrial Gases'
     }
 ]
+
+export const biodata ='Discover our extensive selection of chemicals, delivered with precision and accompanied by thorough documentation, ensuring a seamless experience from order to delivery.';
+
+export const rawbio = 'We greatly appreciate your partnership with our company. We would like to inform you that we will be providing you with a comprehensive list of orders for raw materials. Your continuous support is invaluable to us, and we look forward to furthering our collaboration for mutual success.';
+export const rawbio1 = 'Here runs the list of orders.';
+export const PhExplanation = () => {
+    return (
+        <div>
+            <h3 className="text-lg font-semibold mb-2">pH Explanation:</h3>
+            <p className="mb-4">
+                <ul>
+                    <li>The pH scale measures acidity or alkalinity, ranging from 0 to 14.</li>
+                    <li>A pH value below 7 indicates acidity, while above 7 indicates alkalinity.</li>
+                    <li>Highly Acidic: pH below 3.5</li>
+                    <li>Acidic: pH between 3.5 and 7</li>
+                    <li>Basic: pH below 10.5</li>
+                    <li>Highly Basic: pH above 10.5</li>
+                </ul>
+                <p>By examining the pH value, we can categorize substances into highly acidic, acidic, basic, or highly basic, providing insights into their chemical properties and potential applications.</p>
+            </p>
+        </div>
+    );
+};
+
+export const concl = 'Hence, if the Volatility is high, its Physically hazardous, else, the Toxicity level is checked. If its Toxicity level is higher, then its Health hazardous, else, its highly persistent, which means its Environmentally hazardous. If neither of these parameters attains a value, its Least to none hazardous';
+
+export const Volatility = () => {
+    return (
+        <div>
+            <h3 className="text-lg font-semibold mb-2">Volatility:</h3>
+            <p className="mb-4">
+                High volatility may indicate physical hazards such as flammability or explosiveness.
+                Low volatility may indicate lower physical hazards but may still pose health or environmental risks if the chemical is toxic or persistent.
+            </p>
+        </div>
+    );
+};
+export const Toxicity = () => {
+    return (
+        <div>
+            <h3 className="text-lg font-semibold mb-2">Toxicity:</h3>
+            <p className="mb-4">
+                High toxicity levels may indicate health hazards, including acute or chronic toxicity, carcinogenicity, mutagenicity, or reproductive toxicity.
+                Low toxicity levels may suggest lower health hazards but may still pose risks depending on exposure levels and duration.
+            </p>
+        </div>
+    );
+};
+
+export const Persistence = () => {
+    return (
+        <div>
+            <h3 className="text-lg font-semibold mb-2">Persistence:</h3>
+            <p className="mb-4">
+                Persistent chemicals that resist degradation may pose environmental hazards, such as bioaccumulation or long-term impacts on ecosystems.
+                Non-persistent chemicals may pose fewer environmental hazards but could still cause short-term impacts if released in large quantities.
+            </p>
+        </div>
+    );
+};
