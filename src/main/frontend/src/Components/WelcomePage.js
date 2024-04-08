@@ -2,8 +2,21 @@ import React, {useState} from 'react';
 import {GiChemicalDrop} from "react-icons/gi";
 import Hexagon from 'react-hexagon';
 import {Link} from 'react-router-dom';
-import {ship, supply} from "../Assets/images";
+import {aroma, chem1, gas, nitro, perf, phos, poly, sbr, ship, supply} from "../Assets/images";
 
+// const width = 100; // width of the hexagon container
+// const height = 100; // height of the hexagon container
+//
+// const clipPathCoordinates = [
+//     `${50}% ${0}%`,
+//     `${100}% ${25}%`,
+//     `${100}% ${75}%`,
+//     `${50}% ${100}%`,
+//     `${0}% ${75}%`,
+//     `${0}% ${25}%`
+// ];
+// Calculate clip path coordinates based on width and height
+// const clipPath = `polygon(${clipPathCoordinates.join(', ')})`;
 const WelcomePage = () => {
     const [toggle, setToggle] = useState(false);
     const handleItemClick = () => {
@@ -68,76 +81,123 @@ const WelcomePage = () => {
                     provide cost-effective alternatives focusing on the needs of businesses of all sizes.</p>
 
                 <div className="flex justify-center flex-wrap">
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
-                    >
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            1</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*    // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}*/}
+                    {/*>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        1</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={aroma} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
-                    >
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            2</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*    // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}*/}
+                    {/*>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        2</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={chem1} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
-                    >
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            3</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*    // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}*/}
+                    {/*>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        3</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={gas} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
-                    >
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            4</p>
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={sbr} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center flex-wrap">
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                        // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}
-                    >
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            5</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*    // style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}*/}
+                    {/*>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        5</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={nitro} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            6</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*     style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        6</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={perf} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"
-                         style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            7</p>
+                    {/*<div className="hexagon-container relative w-[200px] h-[200px] p-[20px]"*/}
+                    {/*     style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon className={'w-max h-max'} style={{fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        7</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={phos} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
-                    <div className="hexagon-container"
-                         style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>
-                        <GiChemicalDrop
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>
-                        <Hexagon style={{width: '100%', height: '100%', fill: '#4e80b5'}}/>
-                        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name
-                            8</p>
+                    {/*<div className="hexagon-container"*/}
+                    {/*     style={{width: '200px', height: '200px', padding: '20px', position: 'relative'}}>*/}
+                    {/*    <GiChemicalDrop*/}
+                    {/*        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl text-white"/>*/}
+                    {/*    <Hexagon style={{width: '100%', height: '100%', fill: '#4e80b5'}}/>*/}
+                    {/*    <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-800">Chemical Name*/}
+                    {/*        8</p>*/}
+                    {/*</div>*/}
+                    <div
+                        className="circle-container m-2 relative w-[200px] h-[200px] overflow-hidden rounded-full border-4 border-green-900">
+                        <div className="circle-clip w-full h-full" style={{clipPath: 'circle()'}}>
+                            <img src={poly} alt="SBR"
+                                 className="absolute inset-0 w-full h-full object-cover rounded-full"/>
+                        </div>
                     </div>
                 </div>
             </div>

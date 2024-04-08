@@ -3,9 +3,9 @@ import Modal from "react-modal";
 import {IoClose} from "react-icons/io5";
 import axios from "axios";
 import {email, email_session, isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
-import {producedchemicals} from "../data";
+import {inventorynfo, producedchemicals, trackfo} from "../data";
 import Dashboard from "./Dashboard";
-import {TbInfoHexagon} from "react-icons/tb";
+import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
 
 const customStyles = {
     content: {
@@ -23,15 +23,20 @@ const customStyles = {
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
-        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
-            <div className="flex justify-between items-center mb-4">
+        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] z-40 border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center my-4">
                 <div className={'text-black w-full'}>
                     <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Raw Material Tracking</h1>
                 </div>
                 <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
             </div>
             <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-
+                {trackfo.map(track => (
+                    <div key={track.id} className={'text-black text-start'}>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {track.intro}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {track.next}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

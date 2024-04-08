@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import {assess, inventory, orders, shedule, trackraw} from "../Assets/images";
+import {assess, chemord, inventory, orders, shedule, trackraw} from "../Assets/images";
 import { Link } from "react-router-dom";
 import { isLoggedIn, isLoggedIn_session, rank, rank_session } from "../data/constants";
 import WelcomePage from "./WelcomePage";
-import {TbInfoHexagon} from "react-icons/tb";
+import {TbInfoHexagon, TbPoint, TbPointFilled} from "react-icons/tb";
 import {IoClose} from "react-icons/io5";
+import {LiaUserCircle} from "react-icons/lia";
+import {dashfo, inventorynfo} from "../data";
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
@@ -16,7 +18,15 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
             </div>
             <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-
+                {dashfo.map(dash => (
+                    <div key={dash.id} className={'text-black text-start'}>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {dash.intro}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {dash.body}</p>
+                        <p><TbPoint className="text-black mx-2 inline-block"/> {dash.inveman}</p>
+                        <p><TbPoint className="text-black mx-2 inline-block"/> {dash.asses}</p>
+                        <p><TbPoint className="text-black mx-2 inline-block"/> {dash.distr}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -96,6 +106,16 @@ const Dashboard = () => {
                             <MenuItem to="/TrackOrderRawMaterials" onClick={handleMenuItemClick} image={trackraw}
                                       alt="Track Raw Materials" title="Track Raw Materials"/>
                         </div>
+                    )}
+                </div>
+                <div className={'my-4 mb-10'}>
+                    {(rank === 'CEO' || rank_session === 'CEO') && (
+                        <Link to="/UserList">
+                            <button className={'absolute flex flex-col left-3 text-lg'}>
+                                <LiaUserCircle className={'items-center mx-auto text-6xl'}/>
+                                <p>All users</p>
+                            </button>
+                        </Link>
                     )}
                 </div>
             </div>

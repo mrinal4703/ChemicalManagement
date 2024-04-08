@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {hazard, producedchemicals} from "../data";
+import {hazard, ordfo, producedchemicals} from "../data";
 import {IoClose} from "react-icons/io5";
 import Modal from "react-modal";
-import {assess} from "../Assets/images";
+import {assess, orders} from "../Assets/images";
 import {CiDeliveryTruck} from "react-icons/ci";
 import Dashboard from "./Dashboard";
 import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
-import {TbInfoHexagon} from "react-icons/tb";
+import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
-        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+        <div className={`fixed inset-y-0 right-0 z-40 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
             <div className="flex justify-between items-center mb-4">
                 <div className={'text-black w-full'}>
                     <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Company Orders</h1>
@@ -20,11 +20,19 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
             </div>
             <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-
+                {ordfo.map(ord => (
+                    <div key={ord.id} className={'text-black text-start'}>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {ord.intro}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {ord.inv}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {ord.gen}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {ord.trck}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
+
 function ChemicalDeliveryCard({delivery, producedchemicals}) {
     const [chemicals, setChemicals] = useState([{name: '', quantity: ''}]);
     const [chemlist, setChemlist] = useState([]);

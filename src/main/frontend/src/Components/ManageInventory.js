@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
-import {hazard} from "../data";
+import {assessnfo, hazard, inventorynfo} from "../data";
 import {IoClose} from "react-icons/io5";
 // import {useNavigate} from "react-router-dom";
 import {FaRegFilePdf} from "react-icons/fa6";
@@ -9,19 +9,26 @@ import jsPDF from "jspdf";
 import {logo} from "../Assets/images";
 import {isLoggedIn, isLoggedIn_session, rank, rank_session} from "../data/constants";
 import Dashboard from "./Dashboard";
-import {TbInfoHexagon} from "react-icons/tb";
+import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
-        <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
-            <div className="flex justify-between items-center mb-4">
+        <div
+            className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
+            <div className="flex justify-between items-center my-4">
                 <div className={'text-black w-full'}>
-                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Inventory Management</h1>
+                    <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Inventory
+                    Management</h1>
                 </div>
                 <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
             </div>
             <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-
+                {inventorynfo.map(inven => (
+                    <div key={inven.id} className={'text-black text-start'}>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {inven.intro}</p><br/>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {inven.report}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -301,45 +308,7 @@ const ManageInventory = ({onToggleManageInventory}) => {
                             </tbody>
                         </table>
 
-                        {/*<table className="table-auto mx-auto">*/}
-                        {/*    <thead>*/}
-                        {/*    <tr>*/}
-                        {/*        <th className="px-4 py-2">Name</th>*/}
-                        {/*        <th className="px-4 py-2">Hazard type</th>*/}
-                        {/*        <th className="px-4 py-2">Nature</th>*/}
-                        {/*        <th className="px-4 py-2">Expiry Date</th>*/}
-                        {/*        <th className="px-4 py-2">pH Level</th>*/}
-                        {/*        <th className="px-4 py-2">Quantity(present)</th>*/}
-                        {/*        <th className="px-4 py-2">Download Report</th>*/}
-                        {/*    </tr>*/}
-                        {/*    </thead>*/}
-                        {/*    <tbody>*/}
-                        {/*    {chemicalReports.length > 0 ? (*/}
-                        {/*        chemicalReports.map(report => (*/}
-                        {/*            <tr key={report.id}*/}
-                        {/*                // onClick={() => handleClick(report.id)}*/}
-                        {/*            >*/}
-                        {/*                <td className="border px-4 py-2">{report.name}</td>*/}
-                        {/*                <td className="border px-4 py-2">{report.hazarduous}</td>*/}
-                        {/*                <td className="border px-4 py-2">{report.nature}</td>*/}
-                        {/*                <td className="border px-4 py-2">{report.expiry_date}</td>*/}
-                        {/*                <td className="border px-4 py-2">{report.pH}</td>*/}
-                        {/*                <td className="border px-4 py-2">{report.quantity}</td>*/}
-                        {/*                /!*<button>*!/*/}
-                        {/*                /!*    <td className="border px-4 py-2"><FaRegFilePdf /></td>*!/*/}
-                        {/*                /!*</button>*!/*/}
-                        {/*                <button onClick={() => handleDownloadPDF(report.id)}>*/}
-                        {/*                    <FaRegFilePdf/>*/}
-                        {/*                </button>*/}
-                        {/*            </tr>*/}
-                        {/*        ))*/}
-                        {/*    ) : (*/}
-                        {/*        <tr>*/}
-                        {/*            <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>*/}
-                        {/*        </tr>*/}
-                        {/*        )}*/}
-                        {/*    </tbody>*/}
-                        {/*</table>*/}
+
                     </div>
                 </div>
 

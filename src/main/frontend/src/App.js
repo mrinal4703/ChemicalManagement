@@ -17,6 +17,7 @@ import CompanyDashboard from "./Components/CompanyDashboard";
 import Inventory from "./Components/Inventory";
 import SeemsanSignup from "./Components/SeemsanSignup";
 import Choosing from "./Components/Choosing";
+import UserList from "./Components/UserList";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<WelcomePage/>}/>
               <Route exact path="/Signin" element={<SignIn/>}/>
+              <Route exact path="/UserList" element={<UserList/>}/>
               <Route exact path="/SignUpType" element={<Choosing/>}/>
               <Route exact path="/098213@SeemsanSignup" element={<SeemsanSignup/>}/>
               <Route exact path="/Dashboard" element={<Dashboard/>}/>

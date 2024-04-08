@@ -207,10 +207,63 @@ export const producedchemicals = [
     }
 ]
 
+export const assessnfo = [
+    {
+        id:1,
+        intro: 'This interface displays a breakdown of chemicals yet to be assessed alongside those that have already undergone assessment. It provides a comprehensive overview including the name of each chemical, its production quantity from raw materials, and its current assessment status. A button is available for automatic assessment, which will update the status to "Assessed" once completed by the machines.',
+        how: 'The "how" section provides details on the parameters used for assessment and the criteria for categorizing chemicals during the assessment process.'
+    }
+]
+
+export const inventorynfo =[
+    {
+        id: 1,
+        intro: 'This interface features different buttons tailored to various categories of hazardous chemicals kept separately. By default, all chemicals are displayed together. However, depending on their storage silos, physically hazardous chemicals can be viewed separately by clicking the "Physical Hazardous" button. Similarly, environmentally hazardous chemicals are accessible by clicking the "Environmental Hazardous" button, and health-related hazardous chemicals by selecting the "Health Hazardous" button. Lastly, chemicals with the least to no hazardous properties can be viewed by clicking the "Least to Non-Hazardous" button. Clicking on the "All" button restores the default display, showing all chemicals in the inventory together.',
+        report: 'The table shows you the complete data about each chemical like when was it made, when will it expire, pH level, Nature hazard type and quanitity produced. It provides two types of reports as well, firstly, is a copy for Seemsan\'s use, and second for to be delivered to the company that gave order for chemicals, along with the order stock for them. '
+    }
+]
+
+export const dashfo = [
+    {
+        id: 1,
+        intro: 'This interface encompasses all functionalities required within the company, ranging from managing inventory to tracking and ordering raw materials, scheduling production, assessing production, and managing delivery. Depending on an individual\'s rank within the company, they will be provided with specific functionalities to work on. However, all functionalities will be monitored by the CEO to ensure smooth operation.',
+        body: 'Each cards depicts and redirects to different pages for these functionalities each. Depending upon ranks, the functionalities provided are:',
+        asses: 'The Assessor will have the authority to both schedule production activities and assess the production process.',
+        distr: 'The Distributor will have the capability to check, manage, and oversee the distribution and delivery of chemicals to registered companies.',
+        inveman: 'The Inventory Manager will have the ability to both manage inventory and track and order raw materials as needed, according to the requirements of the company.'
+    }
+]
+
+export const trackfo = [
+    {
+        id: 1,
+        intro: 'This interface consists of two tables. The first table lists all the registered raw material providers with Seemsan, along with the range of raw materials they offer for chemical production. If there is a need to order raw materials, simply place an order using the order portal located in the bottom right corner. Specify the raw materials needed for each chemical and their quantities. You can select the provider from the above table and place your order. Your order will remain pending until it is delivered from the provider\'s side.',
+        next: 'The second table displays all the orders placed along with their respective status. Once the status of an order changes to "Ready", the particular raw material can be sent for producing the desired chemical.'
+    }
+]
+
+export const schedfo = [
+    {
+        id: 1,
+        intro: 'This interface primarily focuses on scheduling the production of chemicals. It consists of two tables. The first table, which can be hidden or viewed as needed, lists the chemicals that need to be produced. Production for a particular chemical can be initiated by using the "Start Production" portal located at the bottom right corner, where the chemical name is selected. Once initiated, the production entry will be displayed in the second table. The status will show as "Pending" as it represents the assessment status.',
+        prod: 'The second table lists the chemical name, quantity produced for raw materials, production date, and status for the chemicals whose production has started and is ready to be assessed.'
+    }
+]
+
+export const ordfo = [
+    {
+        id: 1,
+        intro: 'This interface is equipped with a calculator that calculates the required amount based on density for producing orders or deliveries of chemicals. Since delivery is conducted on a kilogram basis, this calculator is extremely beneficial as it stores the density for all the chemicals listed. Two portals are available in the bottom right corner: "Inventory" and "Generate Delivery."',
+        inv: 'Inventory. This portal redirects to a new page for a quick check to see if enough quantity of the particular chemical is present for delivery.',
+        gen: 'Generate Delivery. This portal enables you to generate a delivery according to your preferences and start the order delivery process. You can select the desired chemical, enter the calculated quantity in kilograms, and submit the order to deliver the chemicals to the designated delivery location.',
+        trck: 'For order requests, you can check from the icon above the calculator, indicated by the truck symbol, to view which orders are pending or have been delivered.'
+    }
+]
+
 export const biodata ='Discover our extensive selection of chemicals, delivered with precision and accompanied by thorough documentation, ensuring a seamless experience from order to delivery.';
 
 export const rawbio = 'We greatly appreciate your partnership with our company. We would like to inform you that we will be providing you with a comprehensive list of orders for raw materials. Your continuous support is invaluable to us, and we look forward to furthering our collaboration for mutual success.';
-export const rawbio1 = 'Here runs the list of orders.';
+export const rawbio1 = 'Here runs the list of orders.   ';
 export const PhExplanation = () => {
     return (
         <div>

@@ -95,46 +95,6 @@ const Inventory = () => {
                         )}
                         </tbody>
                     </table>
-
-                    {/*<table className="table-auto mx-auto">*/}
-                    {/*    <thead>*/}
-                    {/*    <tr>*/}
-                    {/*        <th className="px-4 py-2">Name</th>*/}
-                    {/*        <th className="px-4 py-2">Hazard type</th>*/}
-                    {/*        <th className="px-4 py-2">Nature</th>*/}
-                    {/*        <th className="px-4 py-2">Expiry Date</th>*/}
-                    {/*        <th className="px-4 py-2">pH Level</th>*/}
-                    {/*        <th className="px-4 py-2">Quantity(present)</th>*/}
-                    {/*        <th className="px-4 py-2">Download Report</th>*/}
-                    {/*    </tr>*/}
-                    {/*    </thead>*/}
-                    {/*    <tbody>*/}
-                    {/*    {chemicalReports.length > 0 ? (*/}
-                    {/*        chemicalReports.map(report => (*/}
-                    {/*            <tr key={report.id}*/}
-                    {/*                // onClick={() => handleClick(report.id)}*/}
-                    {/*            >*/}
-                    {/*                <td className="border px-4 py-2">{report.name}</td>*/}
-                    {/*                <td className="border px-4 py-2">{report.hazarduous}</td>*/}
-                    {/*                <td className="border px-4 py-2">{report.nature}</td>*/}
-                    {/*                <td className="border px-4 py-2">{report.expiry_date}</td>*/}
-                    {/*                <td className="border px-4 py-2">{report.pH}</td>*/}
-                    {/*                <td className="border px-4 py-2">{report.quantity}</td>*/}
-                    {/*                /!*<button>*!/*/}
-                    {/*                /!*    <td className="border px-4 py-2"><FaRegFilePdf /></td>*!/*/}
-                    {/*                /!*</button>*!/*/}
-                    {/*                <button onClick={() => handleDownloadPDF(report.id)}>*/}
-                    {/*                    <FaRegFilePdf/>*/}
-                    {/*                </button>*/}
-                    {/*            </tr>*/}
-                    {/*        ))*/}
-                    {/*    ) : (*/}
-                    {/*        <tr>*/}
-                    {/*            <td className="border px-4 py-2" colSpan="5">No Data available currently!</td>*/}
-                    {/*        </tr>*/}
-                    {/*        )}*/}
-                    {/*    </tbody>*/}
-                    {/*</table>*/}
                 </div>
                 <button
                     className={'fixed right-4 bottom-4 px-5 py-4 rounded-2xl text-lg bg-green-700 shadow-lg text-white border-0 '}>
