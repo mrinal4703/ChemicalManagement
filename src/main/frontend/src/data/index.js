@@ -260,6 +260,21 @@ export const ordfo = [
     }
 ]
 
+export const compfo = [
+    {
+        id: 1,
+        intro: 'The interface features a portal in the bottom right corner labeled "Place Order." This portal empowers you to create an order customized to your preferences for a wide variety of chemicals offered by Seemsan. You can select the desired chemical, input the calculated quantity in kilograms, and submit the order to arrange delivery of the chemicals to the designated location.',
+        calc: 'The calculator provided below can calculate the quantity to be entered in kilograms, as delivery is conducted on a kilogram basis. It utilizes a function using density constants for all chemicals to convert quantities into kilograms.'
+    }
+]
+
+export const rawfo = [
+    {
+        id: 1,
+        intro: 'The table showcases orders originating from Seemsan. The button serves as an indicator of raw material preparedness for delivery. Upon clicking, it confirms the readiness of the raw materials for shipment to Seemsan. This streamlined process ensures efficient handling of orders and timely delivery of materials to meet Seemsan\'s requirements.'
+    }
+]
+
 export const biodata ='Discover our extensive selection of chemicals, delivered with precision and accompanied by thorough documentation, ensuring a seamless experience from order to delivery.';
 
 export const rawbio = 'We greatly appreciate your partnership with our company. We would like to inform you that we will be providing you with a comprehensive list of orders for raw materials. Your continuous support is invaluable to us, and we look forward to furthering our collaboration for mutual success.';

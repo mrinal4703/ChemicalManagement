@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {email, email_session, isLoggedIn, isLoggedIn_session} from "../data/constants";
-import {biodata, producedchemicals, rawbio, rawbio1} from "../data";
+import {biodata, compfo, producedchemicals, rawbio, rawbio1, rawfo} from "../data";
 import {TbInfoHexagon, TbPointFilled} from "react-icons/tb";
 import {IoClose} from "react-icons/io5";
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
         <div className={`fixed inset-y-0 right-0 w-96 bg-[#ededed] border-2 border-black text-white transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} transition duration-300 ease-in-out`}>
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center my-4">
                 <div className={'text-black w-full'}>
                     <h1 className="text-xl">Information on</h1><h1 className="text-xl font-bold">Dashboard</h1>
                 </div>
                 <button className={'absolute text-black text-2xl top-3 right-3 '} onClick={onClose}><IoClose/></button>
             </div>
             <div className={'bg-white rounded-lg shadow-md mx-3 p-2 my-4'}>
-
+                {rawfo.map(raw => (
+                    <div key={raw.id} className={'text-black text-start'}>
+                        <p><TbPointFilled className="text-black mr-2 inline-block"/> {raw.intro}</p><br/>
+                        {/*<p><TbPointFilled className="text-black mr-2 inline-block"/> {comp.calc}</p>*/}
+                    </div>
+                ))}
             </div>
         </div>
     );
