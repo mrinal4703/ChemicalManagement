@@ -240,6 +240,7 @@ const SignUp = ({onToggleLoginPage}) => {
                     <label className="block">Select Type:</label>
                     <select
                         value={compType}
+                        required
                         onChange={(e) => setCompType(e.target.value)}
                         className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                     >

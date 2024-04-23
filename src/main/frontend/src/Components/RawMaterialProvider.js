@@ -209,6 +209,7 @@ const SignUp = ({onToggleLoginPage}) => {
                             <label key={chem.id} className="flex flex-col items-center">
                                 <input
                                     type="checkbox"
+                                    required
                                     value={chem.name}
                                     onChange={(e) => handleCheckboxChange(e, chem.name)}
                                     checked={selectedChemicals.includes(chem.name)}
